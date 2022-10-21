@@ -21,7 +21,7 @@ https://docs.google.com/spreadsheets/d/1IQ1AjfNxo6Q11_3Ryg3yfWHwpLfcW495CGN26R4k
 ## TECH STACK USED:
 
 - Frontend: ReactJS
-- Backend: Java 
+- Backend: Python 
 - Database: MySQL
 - REST API: Postman(Testing APIs)
 - Cloud: AWS EC2
