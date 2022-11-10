@@ -12,7 +12,7 @@ class Airline(models.Model):
     airline_name = models.CharField(max_length = 30, unique = True)
 
 class Flight(models.Model):
-    flight_code = models.IntegerField(null= False)
+    flight_code = models.CharField(null= False, unique = True)
     flight_source = models.CharField(max_length = 30, unique = True)
     flight_destination = models.CharField(max_length = 30, unique = True)
     flight_arrival = models.DateTimeField()
