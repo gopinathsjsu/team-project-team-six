@@ -2,54 +2,40 @@ from django.db import models
 
 # Create your models here.
 class Airport(models.Model):
-    airport_ID = models.IntegerField(null= False, unique= True)
-    airport_name = models.CharField(max_length = 30, unique = True)
-    airport_state = models.CharField(max_length = 30, unique = True)
-    airport_country = models.CharField(max_length = 30, unique = True)
+    airportID = models.IntegerField(null= False, unique= True)
+    airportName = models.CharField(max_length = 30, unique = True)
+    airportState = models.CharField(max_length = 30, unique = True)
+    airportCountry = models.CharField(max_length = 30, unique = True)
 
 class Airline(models.Model):
-    airline_ID = models.IntegerField(null= False, unique= True)
-    airline_name = models.CharField(max_length = 30, unique = True)
+    airlineID = models.IntegerField(null= False, unique= True)
+    airlineName = models.CharField(max_length = 30, unique = True)
 
 class Flight(models.Model):
-    flight_code = models.CharField(null= False, unique = True)
-    flight_source = models.CharField(max_length = 30, unique = True)
-    flight_destination = models.CharField(max_length = 30, unique = True)
-    flight_arrival = models.DateTimeField()
-    flight_departure = models.DateField()
-    flight_status = models.CharField()
-    flight_type = models.CharField()
-    flight_layovertime = models.CharField()
-    flight_no_of_stops = models.IntegerField()
-    flight_gate = models.IntegerField(null= False, unique = True)
-    flight_carousal_no = models.IntegerField(null= False, unique = True)
-
-class Passenger(models.Model):
-    passenger_ID = models.IntegerField(null= False, unique= True)
-    passenger_passport_no = models.IntegerField(null= False, unique= True)
-    passenger_first_name = models.CharField(null= False)
-    passenger_last_name = models.CharField(null= False)
-    passenger_gender = models.CharField(null= False)
-    passenger_age = models.IntegerField()
-    passenger_phone = models.IntegerField()
-
+    flightCode = models.CharField(max_length = 30, null= False, unique = True)
+    flightSource = models.CharField(max_length = 30, unique = True)
+    flightDestination = models.CharField(max_length = 30, unique = True)
+    flightArrival = models.DateTimeField()
+    flightDeparture = models.DateField()
+    flightStatus = models.CharField(max_length = 30)
+    flightType = models.CharField(max_length = 30)
+    flightLayoverTime = models.CharField(max_length = 30)
+    flightNoOfStops = models.IntegerField()
+    flightGate = models.IntegerField(null= False, unique = True)
+    flightCarouselNo = models.IntegerField(null= False, unique = True)
 
 class Employee(models.Model):
-    employee_ID = models.IntegerField(null= False, unique= True)
-    employee_SSN_no = models.IntegerField(null= False, unique= True)
-    employee_first_name = models.CharField(null= False)
-    employee_last_name = models.CharField(null= False)
-    employee_gender = models.CharField(null= False)
-    employee_age = models.IntegerField()
-    employee_phone = models.IntegerField()
-    employee_designation = models.CharField()
-    employee_type = models.CharField()
+    employeeID = models.IntegerField(null= False, unique= True)
+    employeeFirstName = models.CharField(max_length = 30, null = False)
+    employeeLastName = models.CharField(max_length = 30, null = False)
+    employeeEmail = models.CharField(max_length = 50, null = False)
+    employeeType = models.CharField(max_length = 30)
 
 class Gate(models.Model):
-    gate_no = models.IntegerField(null= False, unique= True)
-    gate_status = models.CharField()
+    gateNo = models.IntegerField(null= False, unique= True)
+    gateStatus = models.CharField(max_length = 30)
     
 
 class Baggage(models.Model):
-    baggage_carousal_no = models.IntegerField(null= False, unique= True)
-    baggage_status = models.CharField()
+    baggageCarouselNo = models.IntegerField(null= False, unique= True)
+    baggageStatus = models.CharField(max_length = 30)
