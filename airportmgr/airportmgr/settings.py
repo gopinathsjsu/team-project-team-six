@@ -75,10 +75,21 @@ WSGI_APPLICATION = 'airportmgr.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'airport',
+        'USER': 'admin',
+        'PASSWORD': 'adminadmin',
+        'HOST': 'airportmngt6.cdqv1aao9478.us-west-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
