@@ -5,9 +5,6 @@ from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
-""" def main(request):
-    return HttpResponse("hello")
- """
 
 class FlightView(generics.CreateAPIView):
     queryset = Flight.objects.all()
