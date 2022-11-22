@@ -29,4 +29,4 @@ class GateSerializer(serializers.ModelSerializer):
 class BaggageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Baggage
-        fields = ('id','baggageCarouselNo','baggageStatus')
+        fields = ('id','baggageCarousalNo','baggageStatus')

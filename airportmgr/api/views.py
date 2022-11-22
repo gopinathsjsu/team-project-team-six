@@ -36,6 +36,10 @@ class CreateFlightView(APIView):
 
             return Response(FlightSerializer(flight).data, status=status.HTTP_201_CREATED)
 
+        else:
+
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class AirlineView(generics.CreateAPIView):
     queryset = Airline.objects.all()
     serializer_class = AirlineSerializer

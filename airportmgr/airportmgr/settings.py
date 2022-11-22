@@ -91,6 +91,9 @@ DATABASES = {
         'PASSWORD': 'adminadmin',
         'HOST': 'airportmngt6.cdqv1aao9478.us-west-1.rds.amazonaws.com',
         'PORT': '3306',
+        'OPTIONS':{
+            'sql_mode': 'traditional'
+        }
     }
 }
 
