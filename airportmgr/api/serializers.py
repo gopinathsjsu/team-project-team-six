@@ -4,7 +4,12 @@ from .models import Flight, Airline, Employee, Gate, Baggage
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
-        fields = ('id','flightCode','flightSource','flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightLayoverTime','flightNoOfStops', 'flightGate','flightCarouselNo')
+        fields = ('id','flightCode','flightSource','flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
+
+class CreateFlightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
 
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +29,4 @@ class GateSerializer(serializers.ModelSerializer):
 class BaggageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Baggage
-        fields = ('id','baggageCarouselNo','baggageStatus')
+        fields = ('id','baggageCarousalNo','baggageStatus')
