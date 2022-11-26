@@ -31,10 +31,10 @@ class Employee(models.Model):
     employeeType = models.CharField(max_length = 30)
 
 class Gate(models.Model):
-    gateNo = models.IntegerField(null= False, unique= True)
+    gateNo = models.CharField(max_length = 30, null= False, unique= True)
     gateStatus = models.CharField(max_length = 30)
     
 
 class Baggage(models.Model):
-    baggageCarousalNo = models.IntegerField(null= False, unique= True)
+    baggageCarousalNo = models.IntegerField(null= False, unique= True, default=0)
     baggageStatus = models.CharField(max_length = 30)

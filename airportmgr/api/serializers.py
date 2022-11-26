@@ -31,7 +31,17 @@ class GateSerializer(serializers.ModelSerializer):
         model = Gate
         fields = ('id','gateNo','gateStatus')
 
+class CreateGateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gate
+        fields = ('gateNo','gateStatus')
+
 class BaggageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Baggage
         fields = ('id','baggageCarousalNo','baggageStatus')
+
+# class CreateBaggageSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Baggage
+#         fields = ('baggageCarousalNo','baggageStatus')
