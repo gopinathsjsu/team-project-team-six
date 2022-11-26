@@ -14,7 +14,12 @@ class CreateFlightSerializer(serializers.ModelSerializer):
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Airline
-        fields = ('id','airlineID','airlineName')
+        fields = ('airlineID','airlineName')
+
+class CreateAirlineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Airline
+        fields = ('airlineID','airlineName')
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
