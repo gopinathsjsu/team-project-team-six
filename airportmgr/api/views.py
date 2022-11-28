@@ -112,19 +112,19 @@ class BaggageView(generics.CreateAPIView):
     serializer_class = BaggageSerializer
 
 
-# class CreateBaggageView(APIView):
-#     serializer_class = CreateBaggageSerializer
-#     def post(self, request, Format=None):
-#         serializer = self.serializer_class(data=request.data)
-#         if serializer.is_valid():
-#             baggageCarousalNo = serializer.data.get('baggageCarousalNo')
-#             baggageStatus = serializer.data.get('baggageStatus')
+class CreateBaggageView(APIView):
+    serializer_class = CreateBaggageSerializer
+    def post(self, request, Format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            baggageCarouselNo = serializer.data.get('baggageCarouselNo')
+            baggageStatus = serializer.data.get('baggageStatus')
                     
-#             baggage = Baggage(baggageCarousalNo=baggageCarousalNo, baggageStatus=baggageStatus)
-#             baggage.save()
+            baggage = Baggage(baggageCarouselNo=baggageCarouselNo, baggageStatus=baggageStatus)
+            baggage.save()
 
-#             return Response(GateSerializer(baggage).data, status=status.HTTP_201_CREATED)
+            return Response(BaggageSerializer(baggage).data, status=status.HTTP_201_CREATED)
 
-#         else:
+        else:
 
-#             return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
