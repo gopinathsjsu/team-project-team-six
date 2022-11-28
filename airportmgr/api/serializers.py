@@ -11,6 +11,11 @@ class CreateFlightSerializer(serializers.ModelSerializer):
         model = Flight
         fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
 
+class GetFlightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
+
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Airline
@@ -20,6 +25,11 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ('id','employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+
+class CreateEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
 
 class GateSerializer(serializers.ModelSerializer):
     class Meta:
