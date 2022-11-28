@@ -31,6 +31,11 @@ class CreateEmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
 
+class GetEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+        
 class GateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gate
