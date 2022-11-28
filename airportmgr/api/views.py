@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, UpdateFlightSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, UpdateFlightSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
