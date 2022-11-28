@@ -26,12 +26,27 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = ('id','employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
 
+class CreateEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+
 class GateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gate
         fields = ('id','gateNo','gateStatus')
 
+class CreateGateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gate
+        fields = ('gateNo','gateStatus')
+
 class BaggageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Baggage
         fields = ('id','baggageCarousalNo','baggageStatus')
+
+# class CreateBaggageSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Baggage
+#         fields = ('baggageCarousalNo','baggageStatus')

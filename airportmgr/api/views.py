@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -65,10 +65,66 @@ class EmployeeView(generics.CreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
+class CreateEmployeeView(APIView):
+    serializer_class = CreateEmployeeSerializer
+    def post(self, request, Format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            employeeID = serializer.data.get('employeeID')
+            employeeFirstName = serializer.data.get('employeeFirstName')
+            employeeLastName = serializer.data.get('employeeLastName')
+            employeeEmail = serializer.data.get('employeeEmail')
+            employeeType = serializer.data.get('employeeType')
+                    
+            employee = Employee(employeeID = employeeID, employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType)
+            employee.save()
+
+            return Response(EmployeeSerializer(employee).data, status=status.HTTP_201_CREATED)
+
+        else:
+
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class GateView(generics.CreateAPIView):
     queryset = Gate.objects.all()
     serializer_class = GateSerializer
 
+class CreateGateView(APIView):
+    serializer_class = CreateGateSerializer
+    def post(self, request, Format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            gateNo = serializer.data.get('gateNo')
+            gateStatus = serializer.data.get('gateStatus')
+                    
+            gate = Gate(gateNo=gateNo, gateStatus=gateStatus)
+            gate.save()
+
+            return Response(GateSerializer(gate).data, status=status.HTTP_201_CREATED)
+
+        else:
+
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 class BaggageView(generics.CreateAPIView):
     queryset = Baggage.objects.all()
     serializer_class = BaggageSerializer
+
+
+# class CreateBaggageView(APIView):
+#     serializer_class = CreateBaggageSerializer
+#     def post(self, request, Format=None):
+#         serializer = self.serializer_class(data=request.data)
+#         if serializer.is_valid():
+#             baggageCarousalNo = serializer.data.get('baggageCarousalNo')
+#             baggageStatus = serializer.data.get('baggageStatus')
+                    
+#             baggage = Baggage(baggageCarousalNo=baggageCarousalNo, baggageStatus=baggageStatus)
+#             baggage.save()
+
+#             return Response(GateSerializer(baggage).data, status=status.HTTP_201_CREATED)
+
+#         else:
+
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
