@@ -85,6 +85,22 @@ class CreateEmployeeView(APIView):
 
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class GetEmployeeView(APIView):
+    serializer_class = EmployeeSerializer
+    lookup_url_kwarg = 'employeeID'
+    def get(self, request, format=None):
+
+        employeeID = request.GET.get(self.lookup_url_kwarg)
+        if employeeID != None:
+            employee = Employee.objects.filter(employeeID = employeeID)
+            if (len(employee) > 0):
+                data = EmployeeSerializer(employee[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+            return Response('Employee not found: Invalid employee ID', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Employee ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
 class GateView(generics.CreateAPIView):
     queryset = Gate.objects.all()
     serializer_class = GateSerializer
