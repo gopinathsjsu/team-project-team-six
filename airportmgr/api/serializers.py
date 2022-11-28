@@ -11,6 +11,11 @@ class CreateFlightSerializer(serializers.ModelSerializer):
         model = Flight
         fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
 
+class GetFlightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
+
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Airline
