@@ -8,8 +8,8 @@ class Airport(models.Model):
     airportCountry = models.CharField(max_length = 30, unique = True)
 
 class Airline(models.Model):
-    airlineID = models.IntegerField(null= False, unique= True)
-    airlineName = models.CharField(max_length = 30, unique = True)
+    airlineID = models.CharField(max_length = 30, null = False, unique = True)
+    airlineName = models.CharField(max_length = 30, null = False, unique = True)
 
 class Flight(models.Model):
     flightCode = models.CharField(max_length = 30, null= False, unique = True)

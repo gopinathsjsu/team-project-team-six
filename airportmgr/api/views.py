@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -60,6 +60,22 @@ class GetFlightView(APIView):
 class AirlineView(generics.CreateAPIView):
     queryset = Airline.objects.all()
     serializer_class = AirlineSerializer
+
+class CreateAirlineView(APIView):
+    serializer_class = CreateAirlineSerializer
+    def post(self, request, format = None):
+        serializer = self.serializer_class(data = request.data)
+        if serializer.is_valid():
+            airlineID = serializer.data.get('airlineID')
+            airlineName = serializer.data.get('airlineName')
+
+            airline = Airline(airlineID = airlineID, airlineName = airlineName)
+            airline.save()
+
+            return Response(AirlineSerializer(airline).data, status=status.HTTP_201_CREATED)
+        
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class EmployeeView(generics.CreateAPIView):
     queryset = Employee.objects.all()
