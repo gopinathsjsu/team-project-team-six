@@ -77,6 +77,7 @@ class CreateAirlineView(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 class GetAirlineView(APIView):
     serializer_class = AirlineSerializer
     lookup_url_kwarg = 'airlineID'
