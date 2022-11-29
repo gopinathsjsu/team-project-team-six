@@ -78,13 +78,13 @@ class CreateAirlineView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class GetAirlineView(APIView):
-    serializer_class = CreateAirlineSerializer
+    serializer_class = AirlineSerializer
     lookup_url_kwarg = 'airlineID'
     
     def get(self, request, format=None):
         airlineID = request.GET.get(self.lookup_url_kwarg)
         if airlineID != None:
-            airline = request.GET.get(self.lookup_url_kwarg)
+            airline = Airline.objects.filter(airlineID = airlineID)
             if (len(airline) > 0):
                 data = AirlineSerializer(airline[0]).data
                 return Response(data, status=status.HTTP_200_OK)
