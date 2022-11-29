@@ -72,8 +72,7 @@ class CreateAirlineView(APIView):
             airline = Airline(airlineID = airlineID, airlineName = airlineName)
             airline.save()
 
-            return Response(AirlineSerializer(airline).data, status=status.HTTP_201_CREATED)
-        
+            return Response(AirlineSerializer(airline).data, status=status.HTTP_201_CREATED)        
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -90,9 +89,9 @@ class GetAirlineView(APIView):
                 data = AirlineSerializer(airline[0]).data
                 return Response(data, status=status.HTTP_200_OK)
             
-            return Response('Airline not found: Invalid Airline code', status=status.HTTP_404_NOT_FOUND)
+            return Response('Airline not found: Invalid Airline ID', status=status.HTTP_404_NOT_FOUND)
 
-        return Response('Bad request: Airline code parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+        return Response('Bad request: Airline ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
 
 
 class EmployeeView(generics.CreateAPIView):
