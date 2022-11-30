@@ -3,7 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, UpdateFlightSerializer
+
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -97,6 +98,57 @@ class AirlineView(generics.CreateAPIView):
     queryset = Airline.objects.all()
     serializer_class = AirlineSerializer
 
+class CreateAirlineView(APIView):
+    serializer_class = CreateAirlineSerializer
+    def post(self, request, format = None):
+        serializer = self.serializer_class(data = request.data)
+        if serializer.is_valid():
+            airlineID = serializer.data.get('airlineID')
+            airlineName = serializer.data.get('airlineName')
+
+            airline = Airline(airlineID = airlineID, airlineName = airlineName)
+            airline.save()
+
+            return Response(AirlineSerializer(airline).data, status=status.HTTP_201_CREATED)        
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetAirlineView(APIView):
+    serializer_class = AirlineSerializer
+    lookup_url_kwarg = 'airlineID'
+    
+    def get(self, request, format=None):
+        airlineID = request.GET.get(self.lookup_url_kwarg)
+        if airlineID != None:
+            airline = Airline.objects.filter(airlineID = airlineID)
+            if (len(airline) > 0):
+                data = AirlineSerializer(airline[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            
+            return Response('Airline not found: Invalid Airline ID', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Airline ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateAirlineView(APIView):
+    serializer_class = UpdateAirlineSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data = request.data)
+        if serializer.is_valid():
+            airlineID = serializer.data.get('airlineID')
+            airlineName = serializer.data.get('airlineName')
+
+            queryset = Airline.objects.filter(airlineID=airlineID)
+            if not queryset.exists():
+                return Response('Airline ID does not exist', status=status.HTTP_404_NOT_FOUND)
+            
+            airline = queryset[0]
+            airline.airlineName = airlineName
+            airline.save(update_fields=['airlineName'])
+            return Response(AirlineSerializer(airline).data, status=status.HTTP_200_OK)        
+        else:
+            return Response('Bad request: Invalid data', status=status.HTTP_400_BAD_REQUEST)
+
 class EmployeeView(generics.CreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
@@ -120,6 +172,22 @@ class CreateEmployeeView(APIView):
         else:
 
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetEmployeeView(APIView):
+    serializer_class = EmployeeSerializer
+    lookup_url_kwarg = 'employeeID'
+    def get(self, request, format=None):
+
+        employeeID = request.GET.get(self.lookup_url_kwarg)
+        if employeeID != None:
+            employee = Employee.objects.filter(employeeID = employeeID)
+            if (len(employee) > 0):
+                data = EmployeeSerializer(employee[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+            return Response('Employee not found: Invalid employee ID', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Employee ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
 
 class GateView(generics.CreateAPIView):
     queryset = Gate.objects.all()
