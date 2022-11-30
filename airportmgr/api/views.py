@@ -58,7 +58,6 @@ class UpdateFlightView(APIView):
 
     def patch(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
-        flightCode = request.GET.get(self.lookup_url_kwarg)
         if serializer.is_valid():
             flightCode = serializer.data.get('flightCode')
             flightSource = serializer.data.get('flightSource')
