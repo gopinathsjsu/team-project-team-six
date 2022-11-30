@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -76,7 +76,6 @@ class CreateAirlineView(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
 class GetAirlineView(APIView):
     serializer_class = AirlineSerializer
     lookup_url_kwarg = 'airlineID'
@@ -93,6 +92,25 @@ class GetAirlineView(APIView):
 
         return Response('Bad request: Airline ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
 
+class UpdateAirlineView(APIView):
+    serializer_class = UpdateAirlineSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data = request.data)
+        if serializer.is_valid():
+            airlineID = serializer.data.get('airlineID')
+            airlineName = serializer.data.get('airlineName')
+
+            queryset = Airline.objects.filter(airlineID=airlineID)
+            if not queryset.exists():
+                return Response('Airline ID does not exist', status=status.HTTP_404_NOT_FOUND)
+            
+            airline = queryset[0]
+            airline.airlineName = airlineName
+            airline.save(update_fields=['airlineName'])
+            return Response(AirlineSerializer(airline).data, status=status.HTTP_200_OK)        
+        else:
+            return Response('Bad request: Invalid data', status=status.HTTP_400_BAD_REQUEST)
 
 class EmployeeView(generics.CreateAPIView):
     queryset = Employee.objects.all()

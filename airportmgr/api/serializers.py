@@ -26,6 +26,12 @@ class CreateAirlineSerializer(serializers.ModelSerializer):
         model = Airline
         fields = ('airlineID','airlineName')
 
+class UpdateAirlineSerializer(serializers.ModelSerializer):
+    airlineID = serializers.CharField(validators = [])    
+    class Meta:
+        model = Airline
+        fields = ('airlineID','airlineName')
+
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
