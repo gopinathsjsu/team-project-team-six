@@ -12,6 +12,7 @@ class CreateFlightSerializer(serializers.ModelSerializer):
         fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')
 
 class UpdateFlightSerializer(serializers.ModelSerializer):
+    flightCode = serializers.CharField(validators = [])
     class Meta:
         model = Flight
         fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo')

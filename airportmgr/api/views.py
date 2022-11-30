@@ -75,7 +75,7 @@ class UpdateFlightView(APIView):
                 return Response({'msg':'Flight not found.'}, status=status.HTTP_404_NOT_FOUND)
 
             flight = queryset[0]
-            flight.flightCode = flightCode
+            # flight.flightCode = flightCode
             flight.flightSource = flightSource
             flight.flightDestination = flightDestination
             flight.flightArrival = flightArrival
@@ -86,12 +86,11 @@ class UpdateFlightView(APIView):
             flight.flightGate = flightGate
             flight.flightCarouselNo = flightCarouselNo
 
-            flight.save(update_fields=['flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo'])
+            flight.save(update_fields=['flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo'])
 
             return Response(FlightSerializer(flight).data, status=status.HTTP_200_OK)
 
         else:
-
             return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class AirlineView(generics.CreateAPIView):

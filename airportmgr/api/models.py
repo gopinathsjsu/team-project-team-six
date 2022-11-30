@@ -13,8 +13,8 @@ class Airline(models.Model):
 
 class Flight(models.Model):
     flightCode = models.CharField(max_length = 30, null= False, unique = True)
-    flightSource = models.CharField(max_length = 30, unique = True)
-    flightDestination = models.CharField(max_length = 30, unique = True)
+    flightSource = models.CharField(max_length = 30)
+    flightDestination = models.CharField(max_length = 30)
     flightArrival = models.DateTimeField()
     flightDeparture = models.DateField()
     flightStatus = models.CharField(max_length = 30)
