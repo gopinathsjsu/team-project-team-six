@@ -45,6 +45,7 @@ class CreateEmployeeSerializer(serializers.ModelSerializer):
 
 class UpdateEmployeeSerializer(serializers.ModelSerializer):
     employeeID = serializers.CharField(validators = [])
+    employeeEmail = serializers.CharField(validators = [])
     class Meta:
         model = Employee
         fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
