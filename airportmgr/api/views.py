@@ -4,7 +4,7 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateEmployeeSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -188,6 +188,34 @@ class GetEmployeeView(APIView):
             return Response('Employee not found: Invalid employee ID', status=status.HTTP_404_NOT_FOUND)
 
         return Response('Bad request: Employee ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateEmployeeView(APIView):
+    serializer_class = UpdateEmployeeSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data = request.data)
+        if serializer.is_valid():
+            employeeID = serializer.data.get('employeeID')
+            employeeFirstName = serializer.data.get('employeeFirstName')
+            employeeLastName = serializer.data.get('employeeLastName')
+            employeeEmail = serializer.data.get('employeeEmail')
+            employeeType = serializer.data.get('employeeType')
+
+            queryset = Employee.objects.filter(employeeID=employeeID)
+            if not queryset.exists():
+                return Response('Employee does not exist', status=status.HTTP_404_NOT_FOUND)
+            
+            employee = queryset[0]
+            employee.employeeFirstName = employeeFirstName
+            employee.employeeLastName = employeeLastName
+            employee.employeeEmail = employeeEmail
+            employee.employeeType = employeeType
+
+            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeEmail', 'employeeType'])
+            return Response(EmployeeSerializer(employee).data, status=status.HTTP_200_OK)        
+        else:
+            # print(serializer.errors);
+            return Response('Bad request: Invalid data', status=status.HTTP_400_BAD_REQUEST)
 
 class GateView(generics.CreateAPIView):
     queryset = Gate.objects.all()
