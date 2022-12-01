@@ -60,6 +60,12 @@ class CreateGateSerializer(serializers.ModelSerializer):
         model = Gate
         fields = ('gateNo','gateStatus')
 
+class UpdateGateSerializer(serializers.ModelSerializer):
+    gateNo = serializers.CharField(validators = [])
+    class Meta:
+        model = Gate
+        fields = ('gateNo','gateStatus')
+
 class BaggageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Baggage
