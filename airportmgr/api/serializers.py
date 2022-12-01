@@ -47,7 +47,7 @@ class UpdateEmployeeSerializer(serializers.ModelSerializer):
     employeeID = serializers.CharField(validators = [])
     class Meta:
         model = Employee
-        fields = ('id','employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
 
 class GateSerializer(serializers.ModelSerializer):
     class Meta:
