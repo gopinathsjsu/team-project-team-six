@@ -4,7 +4,7 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateGateSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -209,6 +209,47 @@ class CreateGateView(APIView):
         else:
 
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetGateView(APIView):
+    serializer_class = GateSerializer
+    lookup_url_kwarg = 'gateNo'
+    def get(self, request, format=None):
+
+        gateNo = request.GET.get(self.lookup_url_kwarg)
+        if gateNo != None:
+            gate = Gate.objects.filter(gateNo=gateNo)
+            if (len(gate) > 0):
+                data = GateSerializer(gate[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+            return Response('Gate not found: Invalid gate number', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Gate number parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateGateView(APIView):
+    serializer_class = UpdateGateSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            gateNo = serializer.data.get('gateNo')
+            gateStatus = serializer.data.get('gateStatus')
+                    
+            queryset = Gate.objects.filter(gateNo=gateNo)
+            if not queryset.exists():
+                return Response({'msg':'Gate not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+            gate = queryset[0]
+            gate.gateStatus = gateStatus
+
+            gate.save(update_fields=['gateStatus'])
+
+            return Response(GateSerializer(gate).data, status=status.HTTP_200_OK)
+
+        else:
+            return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BaggageView(generics.CreateAPIView):
