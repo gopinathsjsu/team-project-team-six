@@ -13,8 +13,8 @@ export default class App extends Component {
     return (
     <div>
       <HomePage />
-      <AirlineEmployeePage />
-      <AirportEmployeePage />
+      {/* <AirlineEmployeePage />
+      <AirportEmployeePage /> */}
     </div>
     );
   }
