@@ -211,6 +211,23 @@ class CreateGateView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+class GetGateView(APIView):
+    serializer_class = GateSerializer
+    lookup_url_kwarg = 'gateNo'
+    def get(self, request, format=None):
+
+        gateNo = request.GET.get(self.lookup_url_kwarg)
+        if gateNo != None:
+            gate = Gate.objects.filter(gateNo=gateNo)
+            if (len(gate) > 0):
+                data = GateSerializer(gate[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+            return Response('Gate not found: Invalid gate number', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Gate number parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
+
 class BaggageView(generics.CreateAPIView):
     queryset = Baggage.objects.all()
     serializer_class = BaggageSerializer
