@@ -13,15 +13,15 @@ class Airline(models.Model):
 
 class Flight(models.Model):
     flightCode = models.CharField(max_length = 30, null= False, unique = True)
-    flightSource = models.CharField(max_length = 30, unique = True)
-    flightDestination = models.CharField(max_length = 30, unique = True)
+    flightSource = models.CharField(max_length = 30)
+    flightDestination = models.CharField(max_length = 30)
     flightArrival = models.DateTimeField()
     flightDeparture = models.DateField()
     flightStatus = models.CharField(max_length = 30)
     flightType = models.CharField(max_length = 30)
     flightNoOfStops = models.IntegerField()
-    flightGate = models.IntegerField(null= False, unique = True)
-    flightCarouselNo = models.IntegerField(null= False, unique = True)
+    flightGate = models.IntegerField(null= False)
+    flightCarouselNo = models.IntegerField(null= False)
 
 class Employee(models.Model):
     employeeID = models.IntegerField(null= False, unique= True)

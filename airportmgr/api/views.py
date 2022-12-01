@@ -3,7 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, GetFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer
+
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -11,9 +12,6 @@ from .models import Flight, Airline, Employee, Gate, Baggage
 class FlightView(generics.CreateAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
-    """ def get(self, request, format=None):
-        serializer = FlightSerializer
-        return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK) """
 
 class CreateFlightView(APIView):
     serializer_class = CreateFlightSerializer
@@ -56,6 +54,45 @@ class GetFlightView(APIView):
 
         return Response('Bad request: Flight code parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
 
+class UpdateFlightView(APIView):
+    serializer_class = UpdateFlightSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            flightCode = serializer.data.get('flightCode')
+            flightSource = serializer.data.get('flightSource')
+            flightDestination = serializer.data.get('flightDestination')
+            flightArrival = serializer.data.get('flightArrival')
+            flightDeparture = serializer.data.get('flightDeparture')
+            flightStatus = serializer.data.get('flightStatus')
+            flightType = serializer.data.get('flightType')
+            flightNoOfStops = serializer.data.get('flightNoOfStops')
+            flightGate = serializer.data.get('flightGate')
+            flightCarouselNo = serializer.data.get('flightCarouselNo')
+                    
+            queryset = Flight.objects.filter(flightCode=flightCode)
+            if not queryset.exists():
+                return Response({'msg':'Flight not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+            flight = queryset[0]
+            # flight.flightCode = flightCode
+            flight.flightSource = flightSource
+            flight.flightDestination = flightDestination
+            flight.flightArrival = flightArrival
+            flight.flightDeparture = flightDeparture
+            flight.flightStatus = flightStatus
+            flight.flightType = flightType
+            flight.flightNoOfStops = flightNoOfStops
+            flight.flightGate = flightGate
+            flight.flightCarouselNo = flightCarouselNo
+
+            flight.save(update_fields=['flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType','flightNoOfStops', 'flightGate','flightCarouselNo'])
+
+            return Response(FlightSerializer(flight).data, status=status.HTTP_200_OK)
+
+        else:
+            return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class AirlineView(generics.CreateAPIView):
     queryset = Airline.objects.all()
