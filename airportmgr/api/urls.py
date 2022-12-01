@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import FlightView, AirlineView, EmployeeView, GateView, BaggageView, CreateFlightView, CreateGateView, CreateEmployeeView, GetFlightView, CreateBaggageView, GetEmployeeView, CreateAirlineView, GetAirlineView, UpdateAirlineView, UpdateFlightView
+from .views import FlightView, AirlineView, EmployeeView, GateView, BaggageView, CreateFlightView, CreateGateView, CreateEmployeeView, GetFlightView, CreateBaggageView, GetEmployeeView, CreateAirlineView, GetAirlineView, UpdateAirlineView, UpdateFlightView, UpdateEmployeeView
 
 urlpatterns = [
     path('flight', FlightView.as_view()),
@@ -13,6 +13,7 @@ urlpatterns = [
     path('employee', EmployeeView.as_view()),
     path('create-employee', CreateEmployeeView.as_view()),
     path('get-employee', GetEmployeeView.as_view()),
+    path('update-employee', UpdateEmployeeView.as_view()),
     path('gate', GateView.as_view()),
     path('create-gate', CreateGateView.as_view()),
     path('baggage', BaggageView.as_view()),
