@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateGateSerializer, UpdateEmployeeSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateGateSerializer, UpdateEmployeeSerializer,UpdateBaggageSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -318,3 +318,26 @@ class GetBaggageView(APIView):
             return Response('Baggage Carousel not found: Invalid baggage carousel number', status=status.HTTP_404_NOT_FOUND)
 
         return Response('Bad request: Baggage Carousel number parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateBaggageView(APIView):
+    serializer_class = UpdateBaggageSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            baggageCarouselNo = serializer.data.get('baggageCarouselNo')
+            baggageStatus = serializer.data.get('baggageStatus')
+                    
+            queryset = Baggage.objects.filter(baggageCarouselNo=baggageCarouselNo)
+            if not queryset.exists():
+                return Response({'msg':'Baggage Carousel not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+            baggage = queryset[0]
+            baggage.baggageStatus = baggageStatus
+
+            baggage.save(update_fields=['baggageStatus'])
+
+            return Response(BaggageSerializer(baggage).data, status=status.HTTP_200_OK)
+
+        else:
+            return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
