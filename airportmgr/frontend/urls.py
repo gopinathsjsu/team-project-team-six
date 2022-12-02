@@ -5,6 +5,8 @@ urlpatterns = [
     path('', index),
     path('airlineemployeepage', index),
     path('airportemployeepage', index),
+    path('airlineoptionpage', index),
+    path('airportoptionpage', index),
     # path('join', index),
     # path('create', index),
     path('airlineemployeepage/1', index)
