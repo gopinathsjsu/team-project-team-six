@@ -302,3 +302,19 @@ class CreateBaggageView(APIView):
         else:
 
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetBaggageView(APIView):
+    serializer_class = GateSerializer
+    lookup_url_kwarg = 'baggageCarouselNo'
+    def get(self, request, format=None):
+
+        baggageCarouselNo = request.GET.get(self.lookup_url_kwarg)
+        if baggageCarouselNo != None:
+            baggage = Baggage.objects.filter(baggageCarouselNo=baggageCarouselNo)
+            if (len(baggage) > 0):
+                data = BaggageSerializer(baggage[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+            return Response('Baggage Carousel not found: Invalid baggage carousel number', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Baggage Carousel number parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
