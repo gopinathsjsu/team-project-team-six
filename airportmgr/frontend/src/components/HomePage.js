@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import AirlineEmployeePage from "./AirlineEmployeePage";
 import AirportEmployeePage from "./AirportEmployeePage";
+import FlightForm from "./FlightForm";
+
 import {BrowserRouter as Router, 
         Routes, 
         Route, 
@@ -20,6 +22,7 @@ export default class HomePage extends Component {
           <Route exact path = "/" element={<p>This is the home page</p>} />
           <Route path = "/airlineemployeepage" element={<AirlineEmployeePage />} />
           <Route path = "/airportemployeepage" element={<AirportEmployeePage />} />
+          <Route path = "/forms" element={<FlightForm />} />
         </Routes>
       </Router>
     );
