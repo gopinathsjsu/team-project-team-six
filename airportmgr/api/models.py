@@ -23,7 +23,7 @@ class Flight(models.Model):
     flightCarouselNo = models.IntegerField(null= False)
 
 class Employee(models.Model):
-    employeeID = models.IntegerField(null= False, unique= True)
+    # employeeID = models.IntegerField(null= False, unique= True)
     employeeFirstName = models.CharField(max_length = 30, null = False)
     employeeLastName = models.CharField(max_length = 30, null = False)
     employeeEmail = models.CharField(max_length = 50, null = False, unique= True)
