@@ -164,8 +164,9 @@ class CreateEmployeeView(APIView):
             employeeLastName = serializer.data.get('employeeLastName')
             employeeEmail = serializer.data.get('employeeEmail')
             employeeType = serializer.data.get('employeeType')
+            password = serializer.data.get('password')
                     
-            employee = Employee(employeeID = employeeID, employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType)
+            employee = Employee(employeeID = employeeID, employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType, password = password)
             employee.save()
 
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_201_CREATED)
@@ -201,6 +202,7 @@ class UpdateEmployeeView(APIView):
             employeeLastName = serializer.data.get('employeeLastName')
             employeeEmail = serializer.data.get('employeeEmail')
             employeeType = serializer.data.get('employeeType')
+            password = serializer.data.get('password')
 
             queryset = Employee.objects.filter(employeeID=employeeID)
             if not queryset.exists():
@@ -211,8 +213,9 @@ class UpdateEmployeeView(APIView):
             employee.employeeLastName = employeeLastName
             employee.employeeEmail = employeeEmail
             employee.employeeType = employeeType
+            employee.password = password
 
-            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeEmail', 'employeeType'])
+            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeEmail', 'employeeType', 'password'])
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_200_OK)        
         else:
             # print(serializer.errors);
