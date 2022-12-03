@@ -19,7 +19,7 @@ export default class HomePage extends Component {
       // <p>This is the Home page.</p>
       <Router>
         <Routes>
-          <Route exact path = "/" element={<p>This is the home page</p>} />
+          <Route exact path = "/" element={<h1 style={{textAlign:"center"}}>Welcome to San Francisco Airport</h1>} />
           <Route path = "/airlineemployeepage" element={<AirlineEmployeePage />} />
           <Route path = "/airportemployeepage" element={<AirportEmployeePage />} />
           <Route path = "/loginpage" element={<LoginPage />} />
