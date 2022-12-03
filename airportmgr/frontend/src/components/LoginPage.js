@@ -22,13 +22,31 @@ export default class LoginPage extends Component {
     this.setState({ username: event.state.username, password: event.state.password });
     }
     handleSubmit(event) {
-    event.preventDefault();
+        event.preventDefault();
     // if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
     // this.props.history.push("/home");
     // } else {
     // alert('Incorrect Credntials!');
     // }
-    window.location.href = '/airlineemployeepage'
+        fetch("/get-employee" + "?employeeEmail=" + this.state.username).then((response) => 
+        response.json()
+        ).then((data) => {
+            if(data.toString() === 'Employee not found: Invalid employee ID') {
+                alert('User doesn not exist. Please create an account.');
+            }
+            else if (data.password == this.state.password) {
+                if(data.employeeType == 1) {
+                    window.location.href = '/airlineemployeepage';
+                }
+                else {
+                    window.location.href = '/airportemployeepage';
+                }
+            } 
+            else if(data.password != this.state.password) {
+                alert ('Incorrect Credentials. Please try again');
+            }
+        }
+        )
     }
 
   render() {
