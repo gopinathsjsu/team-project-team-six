@@ -16,7 +16,7 @@ class Flight(models.Model):
     flightSource = models.CharField(max_length = 30)
     flightDestination = models.CharField(max_length = 30)
     flightArrival = models.DateTimeField()
-    flightDeparture = models.DateField()
+    flightDeparture = models.DateTimeField()
     flightStatus = models.CharField(max_length = 30)
     flightType = models.CharField(max_length = 30)
     flightGate = models.IntegerField(null= False)
