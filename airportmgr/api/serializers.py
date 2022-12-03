@@ -53,18 +53,18 @@ class UpdateEmployeeSerializer(serializers.ModelSerializer):
 class GateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gate
-        fields = ('id','gateNo','gateStatus','gateMaintainenceStatus')
+        fields = ('id','gateNo','gateStatus','gateMaintainenceStatus', 'terminalNo')
 
 class CreateGateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gate
-        fields = ('gateNo','gateStatus','gateMaintainenceStatus')
+        fields = ('gateNo','gateStatus','gateMaintainenceStatus', 'terminalNo')
 
 class UpdateGateSerializer(serializers.ModelSerializer):
     gateNo = serializers.CharField(validators = [])
     class Meta:
         model = Gate
-        fields = ('gateNo','gateStatus','gateMaintainenceStatus')
+        fields = ('gateNo','gateStatus','gateMaintainenceStatus', 'terminalNo')
 
 class BaggageSerializer(serializers.ModelSerializer):
     class Meta:

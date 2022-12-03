@@ -34,6 +34,7 @@ class Gate(models.Model):
     gateNo = models.CharField(max_length = 30, null= False, unique= True)
     gateStatus = models.CharField(max_length = 30)
     gateMaintainenceStatus = models.CharField(max_length = 30, null= False, default='Enable')
+    terminalNo = models.IntegerField(null= False, default=1)
 
 class Baggage(models.Model):
     baggageCarouselNo = models.IntegerField(null= False, unique= True, default=0)
