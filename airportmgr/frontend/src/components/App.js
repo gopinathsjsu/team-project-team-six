@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import './FlightForm.css'
 
 export default class App extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class App extends Component {
 
   render() {
     return (
-    <div class="bg" style={{justifyContent:"center"}}>
+    <div class="bg home" style={{justifyContent:"center"}}>
       <HomePage />
 
       <FormControl fullWidth>
