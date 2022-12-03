@@ -9,9 +9,8 @@ export default class AirportOptionPage extends Component {
   {
     return (
       <div className="AirportOptionPage">
-      <h2>Hello user! Choose one of the below option:</h2>
+      <h2 style={{textAlign : 'center'}}>Hello user! Choose one of the below option:</h2>
       <button variant="contained"> Assign baggage carousel to flight </button>
-      <button variant="contained"> Assign gate to flight </button>
     </div>
     );
   }
