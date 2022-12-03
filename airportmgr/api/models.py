@@ -19,7 +19,7 @@ class Flight(models.Model):
     flightDeparture = models.DateField()
     flightStatus = models.CharField(max_length = 30)
     flightType = models.CharField(max_length = 30)
-    flightGate = models.IntegerField(null= False)
+    flightGate = models.CharField(max_length = 30, null= False)
     flightCarouselNo = models.IntegerField(null= False)
 
 class Employee(models.Model):
