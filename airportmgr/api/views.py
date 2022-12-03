@@ -229,8 +229,9 @@ class CreateGateView(APIView):
         if serializer.is_valid():
             gateNo = serializer.data.get('gateNo')
             gateStatus = serializer.data.get('gateStatus')
-                    
-            gate = Gate(gateNo=gateNo, gateStatus=gateStatus)
+            gateMaintainenceStatus = serializer.data.get('gateMaintainenceStatus') 
+
+            gate = Gate(gateNo=gateNo, gateStatus=gateStatus, gateMaintainenceStatus=gateMaintainenceStatus)
             gate.save()
 
             return Response(GateSerializer(gate).data, status=status.HTTP_201_CREATED)
@@ -265,6 +266,7 @@ class UpdateGateView(APIView):
         if serializer.is_valid():
             gateNo = serializer.data.get('gateNo')
             gateStatus = serializer.data.get('gateStatus')
+            gateMaintainenceStatus = serializer.data.get('gateMaintainenceStatus')
                     
             queryset = Gate.objects.filter(gateNo=gateNo)
             if not queryset.exists():
@@ -272,8 +274,9 @@ class UpdateGateView(APIView):
 
             gate = queryset[0]
             gate.gateStatus = gateStatus
+            gate.gateMaintainenceStatus = gateMaintainenceStatus
 
-            gate.save(update_fields=['gateStatus'])
+            gate.save(update_fields=['gateStatus', 'gateMaintainenceStatus'])
 
             return Response(GateSerializer(gate).data, status=status.HTTP_200_OK)
 
