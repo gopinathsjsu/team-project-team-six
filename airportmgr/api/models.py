@@ -19,7 +19,7 @@ class Flight(models.Model):
     flightDeparture = models.DateTimeField()
     flightStatus = models.CharField(max_length = 30)
     flightType = models.CharField(max_length = 30)
-    flightGate = models.IntegerField(null= False)
+    flightGate = models.CharField(max_length = 30, null= False)
     flightCarouselNo = models.IntegerField(null= False)
 
 class Employee(models.Model):
@@ -33,7 +33,7 @@ class Employee(models.Model):
 class Gate(models.Model):
     gateNo = models.CharField(max_length = 30, null= False, unique= True)
     gateStatus = models.CharField(max_length = 30)
-    
+    gateMaintainenceStatus = models.CharField(max_length = 30, null= False, default='Enable')
 
 class Baggage(models.Model):
     baggageCarouselNo = models.IntegerField(null= False, unique= True, default=0)
