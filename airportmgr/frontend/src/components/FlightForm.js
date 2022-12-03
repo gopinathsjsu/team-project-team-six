@@ -11,6 +11,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { borders } from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
 root: {
@@ -70,13 +71,17 @@ const Form = ({ handleClose }) => {
 
         <div class="form-style">
             <Box sx={{
+                borderRadius: '7px',
                 p: 2,
                 display: 'flex',
                 gap: 2,
                 border: '1px solid grey',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                backgroundColor: 'white',
             }}>
                 <form className={classes.root} onSubmit={handleSubmit}>
+                <div style={{justifyContent: 'left'}}>Add flight data</div>
+
                     <TextField
                         id="flightSource"
                         label="Flight Source"

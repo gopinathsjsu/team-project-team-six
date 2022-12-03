@@ -3,6 +3,7 @@ import AirlineEmployeePage from "./AirlineEmployeePage";
 import LoginPage from "./LoginPage";
 import SignUpPage from "./SignUpPage";
 import AirportEmployeePage from "./AirportEmployeePage";
+import FlightForm from './FlightForm'
 import {BrowserRouter as Router, 
         Routes, 
         Route, 
@@ -24,6 +25,7 @@ export default class HomePage extends Component {
           <Route path = "/airportemployeepage" element={<AirportEmployeePage />} />
           <Route path = "/loginpage" element={<LoginPage />} />
           <Route path = "/signuppage" element={<SignUpPage />} />
+          <Route path = "/forms" element={<FlightForm />} />
         </Routes>
       </Router>
     );

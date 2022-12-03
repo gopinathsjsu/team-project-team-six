@@ -7,5 +7,6 @@ urlpatterns = [
     path('airportemployeepage', index),
     path('airlineemployeepage/1', index),
     path('loginpage', index),
-    path('signuppage', index)
+    path('signuppage', index),
+    path('forms', index),
 ]
