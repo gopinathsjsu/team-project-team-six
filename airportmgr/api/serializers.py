@@ -36,19 +36,19 @@ class UpdateAirlineSerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ('id','employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+        fields = ('id','employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType', 'password')
 
 class CreateEmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType', 'password')
 
 class UpdateEmployeeSerializer(serializers.ModelSerializer):
     employeeID = serializers.CharField(validators = [])
     employeeEmail = serializers.CharField(validators = [])
     class Meta:
         model = Employee
-        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType')
+        fields = ('employeeID','employeeFirstName','employeeLastName', 'employeeEmail', 'employeeType', 'password')
 
 class GateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -72,6 +72,12 @@ class BaggageSerializer(serializers.ModelSerializer):
         fields = ('id','baggageCarouselNo','baggageStatus')
 
 class CreateBaggageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Baggage
+        fields = ('baggageCarouselNo','baggageStatus')
+
+class UpdateBaggageSerializer(serializers.ModelSerializer):
+    baggageCarouselNo = serializers.CharField(validators = [])
     class Meta:
         model = Baggage
         fields = ('baggageCarouselNo','baggageStatus')

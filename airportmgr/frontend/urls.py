@@ -7,7 +7,8 @@ urlpatterns = [
     path('airportemployeepage', index),
     path('airlineoptionpage', index),
     path('airportoptionpage', index),
-    # path('join', index),
-    # path('create', index),
-    path('airlineemployeepage/1', index)
+    path('airlineemployeepage/1', index),
+    path('loginpage', index),
+    path('signuppage', index),
+    path('forms', index),
 ]

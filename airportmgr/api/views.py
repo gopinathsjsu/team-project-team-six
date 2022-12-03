@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateGateSerializer, UpdateEmployeeSerializer
+from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateGateSerializer, UpdateEmployeeSerializer,UpdateBaggageSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
 
 # Create your views here.
@@ -164,8 +164,9 @@ class CreateEmployeeView(APIView):
             employeeLastName = serializer.data.get('employeeLastName')
             employeeEmail = serializer.data.get('employeeEmail')
             employeeType = serializer.data.get('employeeType')
+            password = serializer.data.get('password')
                     
-            employee = Employee(employeeID = employeeID, employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType)
+            employee = Employee(employeeID = employeeID, employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType, password = password)
             employee.save()
 
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_201_CREATED)
@@ -201,6 +202,7 @@ class UpdateEmployeeView(APIView):
             employeeLastName = serializer.data.get('employeeLastName')
             employeeEmail = serializer.data.get('employeeEmail')
             employeeType = serializer.data.get('employeeType')
+            password = serializer.data.get('password')
 
             queryset = Employee.objects.filter(employeeID=employeeID)
             if not queryset.exists():
@@ -211,8 +213,9 @@ class UpdateEmployeeView(APIView):
             employee.employeeLastName = employeeLastName
             employee.employeeEmail = employeeEmail
             employee.employeeType = employeeType
+            employee.password = password
 
-            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeEmail', 'employeeType'])
+            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeEmail', 'employeeType', 'password'])
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_200_OK)        
         else:
             # print(serializer.errors);
@@ -302,3 +305,42 @@ class CreateBaggageView(APIView):
         else:
 
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetBaggageView(APIView):
+    serializer_class = GateSerializer
+    lookup_url_kwarg = 'baggageCarouselNo'
+    def get(self, request, format=None):
+
+        baggageCarouselNo = request.GET.get(self.lookup_url_kwarg)
+        if baggageCarouselNo != None:
+            baggage = Baggage.objects.filter(baggageCarouselNo=baggageCarouselNo)
+            if (len(baggage) > 0):
+                data = BaggageSerializer(baggage[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+
+            return Response('Baggage Carousel not found: Invalid baggage carousel number', status=status.HTTP_404_NOT_FOUND)
+
+        return Response('Bad request: Baggage Carousel number parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateBaggageView(APIView):
+    serializer_class = UpdateBaggageSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            baggageCarouselNo = serializer.data.get('baggageCarouselNo')
+            baggageStatus = serializer.data.get('baggageStatus')
+                    
+            queryset = Baggage.objects.filter(baggageCarouselNo=baggageCarouselNo)
+            if not queryset.exists():
+                return Response({'msg':'Baggage Carousel not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+            baggage = queryset[0]
+            baggage.baggageStatus = baggageStatus
+
+            baggage.save(update_fields=['baggageStatus'])
+
+            return Response(BaggageSerializer(baggage).data, status=status.HTTP_200_OK)
+
+        else:
+            return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)

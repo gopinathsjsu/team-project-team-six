@@ -29,6 +29,7 @@ class Employee(models.Model):
     employeeLastName = models.CharField(max_length = 30, null = False)
     employeeEmail = models.CharField(max_length = 50, null = False, unique= True)
     employeeType = models.CharField(max_length = 30)
+    password = models.CharField(max_length = 30, null = False, default=123456)
 
 class Gate(models.Model):
     gateNo = models.CharField(max_length = 30, null= False, unique= True)

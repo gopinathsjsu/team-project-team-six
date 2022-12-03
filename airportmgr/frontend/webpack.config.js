@@ -16,10 +16,19 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   optimization: {
     minimize: true,
+  },
+  resolve: {
+    alias: {
+      react: path.resolve('./node_modules/react'),
+    }
   },
   plugins: [
     new webpack.DefinePlugin({
