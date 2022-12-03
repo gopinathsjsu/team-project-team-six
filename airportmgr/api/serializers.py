@@ -75,3 +75,9 @@ class CreateBaggageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Baggage
         fields = ('baggageCarouselNo','baggageStatus')
+
+class UpdateBaggageSerializer(serializers.ModelSerializer):
+    baggageCarouselNo = serializers.CharField(validators = [])
+    class Meta:
+        model = Baggage
+        fields = ('baggageCarouselNo','baggageStatus')
