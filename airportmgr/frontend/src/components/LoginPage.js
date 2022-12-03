@@ -18,18 +18,18 @@ export default class LoginPage extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         }
-        handleChange(event) {
-        this.setState({ username: event.state.username, password: event.state.password });
-        }
-        handleSubmit(event) {
-        event.preventDefault();
-        // if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
-        // this.props.history.push("/home");
-        // } else {
-        // alert('Incorrect Credntials!');
-        // }
-        window.location.href = '/airlineemployeepage'
-        }
+    handleChange(event) {
+    this.setState({ username: event.state.username, password: event.state.password });
+    }
+    handleSubmit(event) {
+    event.preventDefault();
+    // if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
+    // this.props.history.push("/home");
+    // } else {
+    // alert('Incorrect Credntials!');
+    // }
+    window.location.href = '/airlineemployeepage'
+    }
 
   render() {
     return (
