@@ -156,14 +156,14 @@ class CreateEmployeeView(APIView):
     def post(self, request, Format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            employeeID = serializer.data.get('employeeID')
+            # employeeID = serializer.data.get('employeeID')
             employeeFirstName = serializer.data.get('employeeFirstName')
             employeeLastName = serializer.data.get('employeeLastName')
             employeeEmail = serializer.data.get('employeeEmail')
             employeeType = serializer.data.get('employeeType')
             password = serializer.data.get('password')
                     
-            employee = Employee(employeeID = employeeID, employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType, password = password)
+            employee = Employee(employeeFirstName = employeeFirstName, employeeLastName = employeeLastName, employeeEmail = employeeEmail, employeeType = employeeType, password = password)
             employee.save()
 
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_201_CREATED)
@@ -174,19 +174,19 @@ class CreateEmployeeView(APIView):
 
 class GetEmployeeView(APIView):
     serializer_class = EmployeeSerializer
-    lookup_url_kwarg = 'employeeID'
+    lookup_url_kwarg = 'employeeEmail'
     def get(self, request, format=None):
 
-        employeeID = request.GET.get(self.lookup_url_kwarg)
-        if employeeID != None:
-            employee = Employee.objects.filter(employeeID = employeeID)
+        employeeEmail = request.GET.get(self.lookup_url_kwarg)
+        if employeeEmail != None:
+            employee = Employee.objects.filter(employeeEmail = employeeEmail)
             if (len(employee) > 0):
                 data = EmployeeSerializer(employee[0]).data
                 return Response(data, status=status.HTTP_200_OK)
 
             return Response('Employee not found: Invalid employee ID', status=status.HTTP_404_NOT_FOUND)
 
-        return Response('Bad request: Employee ID parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
+        return Response('Bad request: Employee Email parameter not found in request', status=status.HTTP_400_BAD_REQUEST)
 
 class UpdateEmployeeView(APIView):
     serializer_class = UpdateEmployeeSerializer
@@ -194,25 +194,25 @@ class UpdateEmployeeView(APIView):
     def patch(self, request, format=None):
         serializer = self.serializer_class(data = request.data)
         if serializer.is_valid():
-            employeeID = serializer.data.get('employeeID')
+            # employeeID = serializer.data.get('employeeID')
             employeeFirstName = serializer.data.get('employeeFirstName')
             employeeLastName = serializer.data.get('employeeLastName')
             employeeEmail = serializer.data.get('employeeEmail')
             employeeType = serializer.data.get('employeeType')
             password = serializer.data.get('password')
 
-            queryset = Employee.objects.filter(employeeID=employeeID)
+            queryset = Employee.objects.filter(employeeEmail=employeeEmail)
             if not queryset.exists():
                 return Response('Employee does not exist', status=status.HTTP_404_NOT_FOUND)
             
             employee = queryset[0]
             employee.employeeFirstName = employeeFirstName
             employee.employeeLastName = employeeLastName
-            employee.employeeEmail = employeeEmail
+            # employee.employeeEmail = employeeEmail
             employee.employeeType = employeeType
             employee.password = password
 
-            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeEmail', 'employeeType', 'password'])
+            employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeType', 'password'])
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_200_OK)        
         else:
             # print(serializer.errors);
