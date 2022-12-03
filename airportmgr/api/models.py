@@ -19,7 +19,6 @@ class Flight(models.Model):
     flightDeparture = models.DateField()
     flightStatus = models.CharField(max_length = 30)
     flightType = models.CharField(max_length = 30)
-    flightNoOfStops = models.IntegerField()
     flightGate = models.IntegerField(null= False)
     flightCarouselNo = models.IntegerField(null= False)
 
