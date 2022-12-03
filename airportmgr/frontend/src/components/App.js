@@ -19,21 +19,6 @@ export default class App extends Component {
     return (
     <div class="bg home" style={{justifyContent:"center"}}>
       <HomePage />
-
-      <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">What would you like to see?</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            //value={age}
-            label="Age"
-            //onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-      </FormControl>
       {/* <AirlineEmployeePage />
       <AirportEmployeePage /> */}
     </div>
