@@ -69,6 +69,11 @@ export default function BasicTabs() {
    // }
     showForm(true);
   };
+  const handleOnChange = (e) => {
+    console.log("got here");
+    showForm(false);
+    console.log(formVisisble);
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -83,12 +88,12 @@ export default function BasicTabs() {
       <Box sx={{ width: '100%' }}>
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Home" />
+          <Tab label="Home" onChange={handleOnChange}/>
           <Tab label="Add Or Upadte flights" onClick={handleClick} />
          
         </Tabs>
       </Box>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={value} index={0} >
           Home
         </TabPanel>
         <TabPanel value={value} index={1}>
@@ -119,9 +124,6 @@ export default function BasicTabs() {
         </Grid>
         </TabPanel>  
       </Box> 
-      {/* {addEvent &&
-        <Form />
-      } */}
 
       {formVisisble && renderForm()}
       </div>

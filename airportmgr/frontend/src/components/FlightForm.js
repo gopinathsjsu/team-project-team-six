@@ -34,21 +34,18 @@ root: {
 },
 }));
 
-const FlightForm = ({ handleClose }) => {
+const FlightForm = () => {
     const classes = useStyles();
     // create state variables for each input
+    const [flightCode, setFlightCode] = useState('');
     const [flightSource, setFlightSource] = useState('');
     const [flightDestination, setFlightDestination] = useState('');
-    const [flightArrival, setFlightArrival] = useState('');
-    const [flightDeparture, setFlightDeparture] = useState('');
-    const [flightStatus, setFlightStatus] = useState('');
-    const [flightType, setFlightType] = useState('');
+    //const [flightArrival, setFlightArrival] = useState('');
+    //const [flightDeparture, setFlightDeparture] = useState('');
+    //const [flightStatus, setFlightStatus] = useState('');
+    //const [flightType, setFlightType] = useState('');
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log(flightSource, flightDestination, flightArrival, flightDeparture, flightStatus, flightType);
-        handleClose();
-    };
+    
     
     const [value, setValue] = React.useState(dayjs());
     const [flightStatusDropdownValue, setFlightStatusDropdownValue] = React.useState('');
@@ -60,12 +57,39 @@ const FlightForm = ({ handleClose }) => {
 
     const handleStatusChange = (event) => {
         setFlightStatusDropdownValue(event.target.value);
+        console.log(flightStatusDropdownValue);
     };
     
     const handleTypeChange = (event) => {
         setFlightTypeDropdownValue(event.target.value);
     };
     
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        console.log(flightCode,flightSource, flightDestination, value, flightStatusDropdownValue, flightTypeDropdownValue);
+        //handleClose();
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                flightCode: flightCode,
+                flightSource: flightSource,
+                flightDestination: flightDestination,
+                flightSchedule: value,
+                flightStatus: flightStatusDropdownValue,
+                flightType: flightTypeDropdownValue,
+                flightGate: 0,
+                flightCarouselNo: 0,
+            }),
+            };
+            fetch("/create-flight", requestOptions)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+            //window.location.href = '/loginpage';
+        
+        //console.log("this.props.newUserCredentials", newUserCredentials);
+    };
 
     return (
 
@@ -83,14 +107,25 @@ const FlightForm = ({ handleClose }) => {
                 <div style={{justifyContent: 'left'}}>Add flight data</div>
 
                     <TextField
+                        id="flightCode"
+                        label="Flight Code"
+                        variant="outlined"
+                        value={flightCode}
+                        onChange={(e)=>{setFlightCode(e.target.value)}}
+                    />
+                    <TextField
                         id="flightSource"
                         label="Flight Source"
                         variant="outlined"
+                        value={flightSource}
+                        onChange={(e)=>{setFlightSource(e.target.value)}}
                     />
                     <TextField
                         id="flightDestination" 
                         label="Flight Destination" 
                         variant="outlined"
+                        value={flightDestination}
+                        onChange={(e)=>{setFlightDestination(e.target.value)}}
                     />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
@@ -117,13 +152,13 @@ const FlightForm = ({ handleClose }) => {
                                 label="Flight Status"
                                 onChange={handleStatusChange}
                             >
-                                <MenuItem value={1}>Arriving</MenuItem>
-                                <MenuItem value={2}>Departed</MenuItem>
-                                <MenuItem value={3}>Taxi</MenuItem>
-                                <MenuItem value={4}>Cancelled</MenuItem>
-                                <MenuItem value={5}>In Transit</MenuItem>
-                                <MenuItem value={6}>Landed</MenuItem>
-                                <MenuItem value={7}>Delayed</MenuItem>
+                                <MenuItem value="Arriving">Arriving</MenuItem>
+                                <MenuItem value="Departed">Departed</MenuItem>
+                                <MenuItem value="Taxi">Taxi</MenuItem>
+                                <MenuItem value="Cancelled">Cancelled</MenuItem>
+                                <MenuItem value="In Transit">In Transit</MenuItem>
+                                <MenuItem value="Landed">Landed</MenuItem>
+                                <MenuItem value="Delayed">Delayed</MenuItem>
                             </Select>
                     </FormControl>
                     <FormControl fullWidth>
@@ -135,9 +170,9 @@ const FlightForm = ({ handleClose }) => {
                                 label="Flight Type"
                                 onChange={handleTypeChange}
                             >
-                                <MenuItem value={1}>Passenger</MenuItem>
-                                <MenuItem value={2}>Cargo</MenuItem>
-                                <MenuItem value={3}>Private</MenuItem>
+                                <MenuItem value="Passenger">Passenger</MenuItem>
+                                <MenuItem value="Cargo">Cargo</MenuItem>
+                                <MenuItem value="Private">Private</MenuItem>
                             </Select>
                     </FormControl>
                     <div>
