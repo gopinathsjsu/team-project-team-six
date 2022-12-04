@@ -6,9 +6,10 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import FlightForm from './FlightForm';
+import FlightUpdateForm from './FlightUpdateForm';
 import LoginPage from './LoginPage';
 import {
-  Button, Grid,
+  Button, Grid, Paper, Link
   } from "@material-ui/core";
 import { render } from 'react-dom';
 
@@ -52,27 +53,32 @@ function renderForm() {
   );
 }
 
-
+function renderUpdateForm() {
+  return (
+    <FlightUpdateForm />
+  );
+}
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-  const [formVisisble, showForm] = useState(false);
-
+  const [formVisible, showForm] = useState(false);
+  const [updateFormVisible, showUpdateForm] = useState(false);
 
   const inputHandler = (e) => {  
     console.log("im here");  
-   // if(e.target.value === 'add'){
-   //   addEvent = true;
-   // }
-   // if(e.target.value === 'update'){
-   //   updateEvent = true; 
-   // }
-    showForm(true);
+     showForm(true);    
+     showUpdateForm(false);
   };
+  const updateInputHandler = (e) => {  
+    console.log("im here");  
+    showUpdateForm(true);    
+    showForm(false);
+  };
+
   const handleOnChange = (e) => {
     console.log("got here");
     showForm(false);
-    console.log(formVisisble);
+    console.log(formVisible);
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -94,7 +100,13 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
         <TabPanel value={value} index={0} >
-          Home
+          <Paper>
+            <Button variant="contained" color="primary" className="button-block">
+            <Link href='/' centered>
+                 <p style={{color:"white"}}> Click to view the dashboard!</p>
+            </Link>
+            </Button>        
+          </Paper>
         </TabPanel>
         <TabPanel value={value} index={1}>
         <Grid container>
@@ -105,7 +117,7 @@ export default function BasicTabs() {
                   color="primary"
                   type="submit"
                   className="button-block"
-                  value = "add"
+                  value = 'add'
                   onClick={inputHandler}
                   >
                   Add Flights
@@ -115,8 +127,8 @@ export default function BasicTabs() {
                   color="primary"
                   type="submit"
                   className="button-block"
-                  value = "update"
-                  onClick={inputHandler}
+                  value = 'update'
+                  onClick={updateInputHandler}
                   >
                   Update Flights
               </Button>
@@ -125,7 +137,8 @@ export default function BasicTabs() {
         </TabPanel>  
       </Box> 
 
-      {formVisisble && renderForm()}
+      {formVisible && renderForm()}
+      {updateFormVisible && renderUpdateForm()}
       </div>
     );
 }
