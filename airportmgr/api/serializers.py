@@ -4,18 +4,18 @@ from .models import Flight, Airline, Employee, Gate, Baggage
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
-        fields = ('id','flightCode','flightSource','flightDestination','flightArrival','flightDeparture','flightStatus','flightType', 'flightGate','flightCarouselNo')
+        fields = ('id','flightCode','flightSource','flightDestination','flightSchedule','flightStatus','flightType', 'flightGate','flightCarouselNo')
 
 class CreateFlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
-        fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType', 'flightGate','flightCarouselNo')
+        fields = ('flightCode', 'flightSource', 'flightDestination','flightSchedule','flightStatus','flightType', 'flightGate','flightCarouselNo')
 
 class UpdateFlightSerializer(serializers.ModelSerializer):
     flightCode = serializers.CharField(validators = [])
     class Meta:
         model = Flight
-        fields = ('flightCode', 'flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType', 'flightGate','flightCarouselNo')
+        fields = ('flightCode', 'flightSource', 'flightDestination','flightSchedule','flightStatus','flightType', 'flightGate','flightCarouselNo')
 
 class AirlineSerializer(serializers.ModelSerializer):
     class Meta:
