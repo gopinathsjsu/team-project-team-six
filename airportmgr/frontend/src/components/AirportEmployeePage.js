@@ -14,9 +14,11 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 import {
   Button, Grid, Paper, Link
   } from "@material-ui/core";
+import { TabContainer } from 'react-bootstrap';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -53,6 +55,7 @@ function a11yProps(index) {
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const [gateData, setGateData] = React.useState([]);
+  //const [active, setMaintainenceStatus] = React.useState('');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -113,6 +116,43 @@ export default function BasicTabs() {
      });
     //}, []);
   } 
+   
+  // const handleToggle = (activeStatus) => {
+  //   console.log('this is the db status', activeStatus);
+  //   setMaintainenceStatus(activeStatus);
+  //   if(activeStatus === 'Enable') {
+  //     setMaintainenceStatus(true);
+  //   }
+  //   else {
+  //     setMaintainenceStatus(false);
+  //   }
+  //   //return active;
+  // }
+  const changeStatus = (currentMaintainenceStatus, currentGateNo, currentGateStatus, currentTerminalNo) => {
+    if(currentMaintainenceStatus === 'Enabled') {
+      console.log(currentMaintainenceStatus, currentGateNo, currentGateStatus);
+      currentMaintainenceStatus = 'Disabled';
+    }
+    else {
+      console.log("Gate is disabled");
+      currentMaintainenceStatus = 'Enabled';
+    }
+    const requestOptions = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+          gateNo: currentGateNo,
+          gateStatus: currentGateStatus,
+          gateMaintainenceStatus: currentMaintainenceStatus,
+          terminalNo: currentTerminalNo,
+      }),
+      };
+      fetch("/update-gate", requestOptions)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+      alert('You have changed the Gate Maintenance Status for gate number '+  currentGateNo + '. Go back to Home Page to verify your changes.');
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -123,7 +163,7 @@ export default function BasicTabs() {
       </Tabs>
     </Box>
       <TabPanel value={value} index={0}>
-        <Paper>
+        <Paper  >
           <Button variant="contained" color="primary" className="button-block">
             <Link href='/' centered>
                  <p style={{color:"white"}}> Click to view the dashboard!</p>
@@ -131,10 +171,9 @@ export default function BasicTabs() {
           </Button>        
         </Paper>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <div className="posts-container">
+      <TabPanel value={value} index={1}>  
           {/* {gateData.map((data) => { */}
-            <Paper>
+            <Paper className="contain">
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -142,7 +181,7 @@ export default function BasicTabs() {
                   <TableCell align="center">Gate Number</TableCell>
                   <TableCell align="center">Gate Status</TableCell>
                   <TableCell align="center">Gate Maintenance Status</TableCell>
-                  <TableCell align="left">Change Gate Status</TableCell>
+                  <TableCell align="center">Change Gate Status</TableCell>
                   <TableCell align="center">Terminal Number</TableCell>               
                 </TableRow>
               </TableHead>
@@ -159,11 +198,19 @@ export default function BasicTabs() {
                     <TableCell align="center">{row.gateStatus}</TableCell>
                     <TableCell align="center">{row.gateMaintainenceStatus}</TableCell>
                     <TableCell align="center">
-                    <Stack direction="row" align="center" spacing={1} alignItems="center">
-                        <Typography>Off</Typography>
-                        <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} />
-                        <Typography>On</Typography>
-                    </Stack>
+                      {/* <Stack direction="row" align="center" spacing={1} alignItems="center">
+                          <Typography>Disable</Typography>
+                          <AntSwitch onClick={() => handleToggle(row.gateMaintainenceStatus)} defaultChecked ={active}
+                            value="active" inputProps={{ 'aria-label': 'ant design' }} />
+                          <Typography>Enable</Typography>
+                      </Stack> */}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit" 
+                        onClick={()=>changeStatus(row.gateMaintainenceStatus, row.gateNo, row.gateStatus, row.terminalNo)}>
+                        Enable/Disable Gate
+                      </Button>
                     </TableCell>
                     <TableCell align="center">{row.terminalNo}</TableCell>
                    
@@ -171,9 +218,8 @@ export default function BasicTabs() {
                 ))}
               </TableBody>
             </Table>
-            </Paper>
+          </Paper>
           {/* })} */}
-        </div>
       </TabPanel>
       
       <TabPanel value={value} index={2}>
