@@ -34,7 +34,7 @@ root: {
 },
 }));
 
-const Form = ({ handleClose }) => {
+const FlightForm = ({ handleClose }) => {
     const classes = useStyles();
     // create state variables for each input
     const [flightSource, setFlightSource] = useState('');
@@ -95,20 +95,20 @@ const Form = ({ handleClose }) => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                             id="flightArrival" 
-                            label="Flight Arrival Time"
+                            label="Flight Arrival/Departure Time"
                             value={value}
                             onChange={handleDateChange}
                             renderInput={(params) => <TextField {...params} variant="outlined"/>}
                         />
-                        <DateTimePicker
+                        {/* <DateTimePicker
                             id="flightDeparture" 
                             label="Flight Departure Time"
                             value={value}
                             onChange={handleDateChange}
                             renderInput={(params) => <TextField {...params} variant="outlined"/>}
-                        />
+                        /> */}
                     </LocalizationProvider>
-                    <FormControl sx={{ m: 1, minWidth: 300 }}>
+                    <FormControl fullWidth>
                         <InputLabel id="flightStatus">Flight Status</InputLabel>
                             <Select
                                 labelId="flight-status-label"
@@ -126,7 +126,7 @@ const Form = ({ handleClose }) => {
                                 <MenuItem value={7}>Delayed</MenuItem>
                             </Select>
                     </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 300 }}>
+                    <FormControl fullWidth>
                         <InputLabel id="flightType">Flight Type</InputLabel>
                             <Select
                                 labelId="flight-type-label"
@@ -150,4 +150,4 @@ const Form = ({ handleClose }) => {
     );
 };
 
-export default Form;
+export default FlightForm;
