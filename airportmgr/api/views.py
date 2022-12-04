@@ -39,10 +39,11 @@ class CreateFlightView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class GetFlightView(APIView):
+    
     serializer_class = FlightSerializer
     lookup_url_kwarg = 'flightCode'
-    def get(self, request, format=None):
-
+    
+    def get(self, request, format=None):  
         flightCode = request.GET.get(self.lookup_url_kwarg)
         if flightCode != None:
             flight = Flight.objects.filter(flightCode=flightCode)
@@ -407,4 +408,13 @@ class BaggageCarousalAssignmentView(APIView):
             SET baggageStatus = %s
             WHERE baggageCarouselNo =%s
             """, ("Unavailable", first_available_baggage_carousal[1]))
-        
+    
+class GetArrivingFlights(generics.ListAPIView):
+
+    serializer_class = FlightSerializer
+    queryset = Flight.objects.filter(flightDestination="SFO")
+
+class GetDepartingFlights(generics.ListAPIView):
+
+    serializer_class = FlightSerializer
+    queryset = Flight.objects.filter(flightSource="SFO")

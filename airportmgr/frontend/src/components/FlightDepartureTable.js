@@ -12,7 +12,22 @@ import Paper from '@mui/material/Paper';
 export default class App extends Component {
     constructor(props) {
         super(props);
+        
+        this.state = {
+            flightsData: []
+        }
     }
+
+    getDepartingFlightsData() {
+        console.log('Here!');
+        fetch('/get-all-flight-dep').then((response) => 
+            response.json()
+        ).then((data) => {
+            this.setState({ flightsData: data });
+        });
+    }
+
+    getDepartingFlightsData();
 
     createData(name, calories, fat, carbs, protein) {
         return { name, calories, fat, carbs, protein };
