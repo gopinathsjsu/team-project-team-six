@@ -22,14 +22,14 @@ class CreateFlightView(APIView):
             flightCode = serializer.data.get('flightCode')
             flightSource = serializer.data.get('flightSource')
             flightDestination = serializer.data.get('flightDestination')
-            flightArrival = serializer.data.get('flightArrival')
-            flightDeparture = serializer.data.get('flightDeparture')
+            flightSchedule = serializer.data.get('flightSchedule')
+            # flightDeparture = serializer.data.get('flightDeparture')
             flightStatus = serializer.data.get('flightStatus')
             flightType = serializer.data.get('flightType')
             flightGate = serializer.data.get('flightGate')
             flightCarouselNo = serializer.data.get('flightCarouselNo')
                     
-            flight = Flight(flightCode=flightCode, flightSource=flightSource, flightDestination=flightDestination, flightArrival=flightArrival, flightDeparture=flightDeparture, flightStatus=flightStatus, flightType=flightType, flightGate=flightGate, flightCarouselNo=flightCarouselNo)
+            flight = Flight(flightCode=flightCode, flightSource=flightSource, flightDestination=flightDestination, flightSchedule=flightSchedule, flightStatus=flightStatus, flightType=flightType, flightGate=flightGate, flightCarouselNo=flightCarouselNo)
             flight.save()
 
             return Response(FlightSerializer(flight).data, status=status.HTTP_201_CREATED)
@@ -63,8 +63,8 @@ class UpdateFlightView(APIView):
             flightCode = serializer.data.get('flightCode')
             flightSource = serializer.data.get('flightSource')
             flightDestination = serializer.data.get('flightDestination')
-            flightArrival = serializer.data.get('flightArrival')
-            flightDeparture = serializer.data.get('flightDeparture')
+            flightSchedule = serializer.data.get('flightSchedule')
+            # flightDeparture = serializer.data.get('flightDeparture')
             flightStatus = serializer.data.get('flightStatus')
             flightType = serializer.data.get('flightType')
             flightGate = serializer.data.get('flightGate')
@@ -78,14 +78,14 @@ class UpdateFlightView(APIView):
             # flight.flightCode = flightCode
             flight.flightSource = flightSource
             flight.flightDestination = flightDestination
-            flight.flightArrival = flightArrival
-            flight.flightDeparture = flightDeparture
+            flight.flightSchedule = flightSchedule
+            # flight.flightDeparture = flightDeparture
             flight.flightStatus = flightStatus
             flight.flightType = flightType
             flight.flightGate = flightGate
             flight.flightCarouselNo = flightCarouselNo
 
-            flight.save(update_fields=['flightSource', 'flightDestination','flightArrival','flightDeparture','flightStatus','flightType', 'flightGate','flightCarouselNo'])
+            flight.save(update_fields=['flightSource', 'flightDestination','flightSchedule','flightStatus','flightType', 'flightGate','flightCarouselNo'])
 
             return Response(FlightSerializer(flight).data, status=status.HTTP_200_OK)
 

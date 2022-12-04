@@ -1,9 +1,10 @@
 .form-style{
-    justify-content: center;
-    height: 100%;
-    margin-left: 600px; 
-    margin-top: 200px;
-    margin-right: 600px;
+    
+padding: 50px;
+margin-bottom: 0px;
+margin-left: 800px;
+margin-top: 0px;
+height: 100%;
 };
 
 .form{

@@ -21,37 +21,70 @@ export default class SignUpPage extends Component {
   constructor(props) {
     super(props);
 
-        //this.state = { username: "", password:"", authflag:1 };
-        //this.handleChange = this.handleChange.bind(this);
+        this.state = { employeeFirstName: "", employeeLastName:"", employeeEmail:"",  employeeType:"", password:"", confirmpassword:"", error:false};
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        //this.setError = this.setError.bind(this);
+        //this.submitForm = this.submitForm.bind(this);
         }
-    // handleChange(event) {
-    // this.setState({ username: event.state.username, password: event.state.password });
-    // }
-    
-    
+        
     handleChange = name => e => {
         this.setState({
-          [name]: e.target.value
+          [name]: e.target.value      
         });
       };
     passwordMatch = () => this.state.password === this.state.confirmpassword;
-    handleSubmit(event) {
-    event.preventDefault();
-    // if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
-    // this.props.history.push("/home");
-    // } else {
-    // alert('Incorrect Credntials!');
-    // }
-    if (!this.passwordMatch()) {
-        this.setState({
-          errorOpen: true,
-          error: "Passwords don't match"
-        });
+
+    // handleSubmit(event) {
+    // event.preventDefault();
+  
+    // if (!this.passwordMatch()) {
+    //     this.setState({
+    //       errorOpen: true,
+    //       error: "Passwords don't match"
+    //     });
     
-    }
-    else {window.location.href = '/loginpage'}
-}
+    // }
+    // else {window.location.href = '/loginpage'}
+    // }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        // if (!this.passwordMatch()) {
+        //   this.setState({
+        //     errorOpen: true,
+        //     error: "Passwords don't match"
+        //   });
+        // }
+       
+        console.log(this.state.employeeType)
+        // if(this.state.employeeType === 'AirlineEmployee') {
+        //     console.log("im hereeee");
+        //     emptype = 1;
+        // } else {
+        //     emptype = 2;
+        // }
+        // console.log(emptype);
+        
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                employeeFirstName: this.state.employeeFirstName,
+                employeeLastName: this.state.employeeLastName,
+                employeeType: this.state.employeeType,
+                employeeEmail: this.state.employeeEmail,
+                password: this.state.password,
+            }),
+            };
+            fetch("/create-employee", requestOptions)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+            window.location.href = '/loginpage';
+        
+        //console.log("this.props.newUserCredentials", newUserCredentials);
+        //dispath to userActions
+      };
 
   render() {
     return (      
@@ -83,14 +116,14 @@ export default class SignUpPage extends Component {
                     type="name"
                     placeholder="First Name"
                     fullWidth
-                    name="name"
+                    name="employeeFirstName"
                     variant="outlined"
-                    //value={this.state.username}
-                    // onChange={(event) =>
-                    // this.setState({
-                    // [event.target.name]: event.target.value,
-                    // })
-                    // }
+                    value={this.state.employeeFirstName}
+                    onChange={(event) =>
+                    this.setState({
+                    [event.target.name]: event.target.value,
+                    })
+                    }
                     required
                     autoFocus
                     />
@@ -101,14 +134,14 @@ export default class SignUpPage extends Component {
                     type="name"
                     placeholder="Last Name"
                     fullWidth
-                    name="lname"
+                    name="employeeLastName"
                     variant="outlined"
-                    //value={this.state.username}
-                    // onChange={(event) =>
-                    // this.setState({
-                    // [event.target.name]: event.target.value,
-                    // })
-                    // }
+                    value={this.state.employeeLastName}
+                    onChange={(event) =>
+                    this.setState({
+                    [event.target.name]: event.target.value,
+                    })
+                    }
                     required
                     autoFocus
                     />
@@ -118,14 +151,14 @@ export default class SignUpPage extends Component {
                     type="email"
                     placeholder="Email"
                     fullWidth
-                    name="username"
+                    name="employeeEmail"
                     variant="outlined"
-                    // value={this.state.username}
-                    // onChange={(event) =>
-                    // this.setState({
-                    // [event.target.name]: event.target.value,
-                    // })
-                    // }
+                    value={this.state.email}
+                    onChange={(event) =>
+                    this.setState({
+                    [event.target.name]: event.target.value,
+                    })
+                    }
                     required
                     autoFocus
                     />
@@ -137,11 +170,16 @@ export default class SignUpPage extends Component {
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             //value={age}
-                            label="Age"
-                            //onChange={handleChange}
+                            label="emptype"
+                            name="employeeType"
+                            onChange={(event) =>
+                            this.setState({
+                                [event.target.name]: event.target.value,
+                            })                               
+                            }
                         >
-                            <MenuItem value={10}>AirlineEmployee</MenuItem>
-                            <MenuItem value={20}>AirportEmployee</MenuItem>
+                            <MenuItem value={1}>AirlineEmployee</MenuItem>
+                            <MenuItem value={2}>AirportEmployee</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -152,13 +190,13 @@ export default class SignUpPage extends Component {
                     fullWidth
                     name="password"
                     variant="outlined"
-                    onChange={this.handleChange("password")}
-                    // value={this.state.password}
-                    // onChange={(event) =>
-                    // this.setState({
-                    // [event.target.name]: event.target.value,
-                    // })
-                    // }
+                    //onChange={this.handleChange("password")}
+                    value={this.state.password}
+                    onChange={(event) =>
+                    this.setState({
+                    [event.target.name]: event.target.value,
+                    })
+                    }
                     required
                     />
                 </Grid>
@@ -170,12 +208,7 @@ export default class SignUpPage extends Component {
                     name="confirmpassword"
                     variant="outlined"
                     onChange={this.handleChange("confirmpassword")}
-                    // value={this.state.password}
-                    // onChange={(event) =>
-                    // this.setState({
-                    // [event.target.name]: event.target.value,
-                    // })
-                    // }
+                    value={this.state.confirmpassword}
                     required
                     />
                 </Grid>
