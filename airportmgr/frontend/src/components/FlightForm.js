@@ -60,7 +60,7 @@ const FlightForm = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        console.log(flightCode,flightSource, flightDestination, value, flightStatusDropdownValue, flightTypeDropdownValue);
+        // Call create flight API with information from form
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
