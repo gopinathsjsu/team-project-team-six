@@ -352,10 +352,6 @@ class UpdateBaggageView(APIView):
             return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class GateAssignmentView(APIView):
-    # def get(self, request, format=None):
-    #     cursor = connection.cursor()
-    #     subprocess.call('python3 api/gateAssignment.py gateAssignment %s', cursor)
-    #     return HttpResponse("Executed!")
     def get(self, request, format=None):
         cursor = connection.cursor()
 
