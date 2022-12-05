@@ -10,7 +10,7 @@
 ### <a href="https://github.com/orgs/gopinathsjsu/projects/44/views/1">Project Board</a>
 
 ## Scrum Meeting:
-The team followed a weekly status update and used to meet every Friday for a SCRUM meeting.
+The team followed a weekly status update and used to meet every Wednesday for a SCRUM meeting.
 
 ## Sprint journal:
 https://docs.google.com/document/d/128gPWTqZ3xhiH20bWj2-MMGFBszZ3Ll1Eubz9FEg3hQ/edit?usp=sharing
