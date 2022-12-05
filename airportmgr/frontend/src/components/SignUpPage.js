@@ -33,6 +33,7 @@ export default class SignUpPage extends Component {
     handleSubmit(e) {
         e.preventDefault();
         
+        //Call POST API to create new employee in db
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -134,7 +135,6 @@ export default class SignUpPage extends Component {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            //value={age}
                             label="emptype"
                             name="employeeType"
                             onChange={(event) =>
