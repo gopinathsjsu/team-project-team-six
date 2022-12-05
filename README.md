@@ -6,7 +6,7 @@
 - Pratik Mali 
 - Ashutosh Patil 
 - Yashvi Desai 
-- 
+
 ## Project Board
 https://github.com/orgs/gopinathsjsu/projects/44/views/1
 
