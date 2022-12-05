@@ -392,7 +392,7 @@ class BaggageCarousalAssignmentView(APIView):
         for i in all_flights:
             # if baggage carousal is  not assigned
             if i[8] == 0:
-                # get first available baggage carousal
+                # get first available baggage carousal which is available
                 cursor.execute('''SELECT * FROM api_baggage WHERE baggageStatus = "Available" ''')
 
                 first_available_baggage_carousal = cursor.fetchone()
