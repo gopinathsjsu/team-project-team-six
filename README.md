@@ -1,9 +1,6 @@
-"# team-project-team-six" 
+# Airport Management System by Team-6
 
-<b> Project Board Link : </b> <br/>
-
-
-Team Members:
+## Team Members:
 
 - Sayali Nilangekar 
 - Pratik Mali 
