@@ -23,7 +23,7 @@ https://docs.google.com/spreadsheets/d/1fWvcFX3TMqRTKFlGgInmzyujm_t8z8VO93hP89LG
 - Frontend: ReactJS
 - Backend: Python 
 - Database: MySQL
-- REST API: Postman(Testing APIs)
+- REST API: Django REST Framework
 - Cloud: AWS EC2
 
 ## XP Core Values
