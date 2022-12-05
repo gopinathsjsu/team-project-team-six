@@ -4,9 +4,7 @@ import {
     TextField,
     Grid,
     Paper,
-    AppBar,
     Typography,
-    Toolbar,
     Link,
     } from "@material-ui/core";
 import "../App.css" ;
@@ -23,11 +21,6 @@ export default class LoginPage extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-    // if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
-    // this.props.history.push("/home");
-    // } else {
-    // alert('Incorrect Credntials!');
-    // }
         fetch("/get-employee" + "?employeeEmail=" + this.state.username).then((response) => 
         response.json()
         ).then((data) => {
@@ -52,15 +45,6 @@ export default class LoginPage extends Component {
   render() {
     return (
         <div className="bg-image">
-            {/* <AppBar position="inherit" alignitems="center" color="primary">
-                <Toolbar>
-                <Grid container Content="center" wrap="wrap" alignItems="center">
-                <Grid item>
-                <Typography variant="h6">{BRAND_NAME}</Typography>
-                </Grid>
-                </Grid>
-                </Toolbar>
-            </AppBar> */}
             <Grid justifyContent="center" align="center">
                 <Grid item>
                 <Grid
