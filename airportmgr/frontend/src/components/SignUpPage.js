@@ -4,18 +4,14 @@ import {
     TextField,
     Grid,
     Paper,
-    AppBar,
     Typography,
-    Toolbar,
     Link,
     FormControl,
     InputLabel,
     Select, MenuItem
     } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
+
 import "../App.css" ;
-import ErrorIcon from "@material-ui/icons/Error";
 
 export default class SignUpPage extends Component {
   constructor(props) {
@@ -24,8 +20,7 @@ export default class SignUpPage extends Component {
         this.state = { employeeFirstName: "", employeeLastName:"", employeeEmail:"",  employeeType:"", password:"", confirmpassword:"", error:false};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        //this.setError = this.setError.bind(this);
-        //this.submitForm = this.submitForm.bind(this);
+      
         }
         
     handleChange = name => e => {
@@ -35,36 +30,8 @@ export default class SignUpPage extends Component {
       };
     passwordMatch = () => this.state.password === this.state.confirmpassword;
 
-    // handleSubmit(event) {
-    // event.preventDefault();
-  
-    // if (!this.passwordMatch()) {
-    //     this.setState({
-    //       errorOpen: true,
-    //       error: "Passwords don't match"
-    //     });
-    
-    // }
-    // else {window.location.href = '/loginpage'}
-    // }
-
     handleSubmit(e) {
         e.preventDefault();
-        // if (!this.passwordMatch()) {
-        //   this.setState({
-        //     errorOpen: true,
-        //     error: "Passwords don't match"
-        //   });
-        // }
-       
-        console.log(this.state.employeeType)
-        // if(this.state.employeeType === 'AirlineEmployee') {
-        //     console.log("im hereeee");
-        //     emptype = 1;
-        // } else {
-        //     emptype = 2;
-        // }
-        // console.log(emptype);
         
         const requestOptions = {
             method: "POST",
@@ -82,8 +49,6 @@ export default class SignUpPage extends Component {
             .then((data) => console.log(data));
             window.location.href = '/loginpage';
         
-        //console.log("this.props.newUserCredentials", newUserCredentials);
-        //dispath to userActions
       };
 
   render() {
@@ -190,7 +155,6 @@ export default class SignUpPage extends Component {
                     fullWidth
                     name="password"
                     variant="outlined"
-                    //onChange={this.handleChange("password")}
                     value={this.state.password}
                     onChange={(event) =>
                     this.setState({

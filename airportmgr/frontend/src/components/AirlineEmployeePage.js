@@ -7,12 +7,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import FlightForm from './FlightForm';
 import FlightUpdateForm from './FlightUpdateForm';
-import LoginPage from './LoginPage';
 import {
   Button, Grid, Paper, Link
   } from "@material-ui/core";
-import { render } from 'react-dom';
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

@@ -11,7 +11,6 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { borders } from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
 root: {
@@ -40,12 +39,6 @@ const FlightForm = () => {
     const [flightCode, setFlightCode] = useState('');
     const [flightSource, setFlightSource] = useState('');
     const [flightDestination, setFlightDestination] = useState('');
-    //const [flightArrival, setFlightArrival] = useState('');
-    //const [flightDeparture, setFlightDeparture] = useState('');
-    //const [flightStatus, setFlightStatus] = useState('');
-    //const [flightType, setFlightType] = useState('');
-
-    
     
     const [value, setValue] = React.useState(dayjs());
     const [flightStatusDropdownValue, setFlightStatusDropdownValue] = React.useState('');
@@ -68,7 +61,6 @@ const FlightForm = () => {
         //e.preventDefault();
 
         console.log(flightCode,flightSource, flightDestination, value, flightStatusDropdownValue, flightTypeDropdownValue);
-        //handleClose();
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -86,9 +78,7 @@ const FlightForm = () => {
             fetch("/create-flight", requestOptions)
             .then((response) => response.json())
             .then((data) => console.log(data));
-            //window.location.href = '/loginpage';
         
-        //console.log("this.props.newUserCredentials", newUserCredentials);
     };
 
     return (
@@ -135,13 +125,6 @@ const FlightForm = () => {
                             onChange={handleDateChange}
                             renderInput={(params) => <TextField {...params} variant="outlined"/>}
                         />
-                        {/* <DateTimePicker
-                            id="flightDeparture" 
-                            label="Flight Departure Time"
-                            value={value}
-                            onChange={handleDateChange}
-                            renderInput={(params) => <TextField {...params} variant="outlined"/>}
-                        /> */}
                     </LocalizationProvider>
                     <FormControl fullWidth>
                         <InputLabel id="flightStatus">Flight Status</InputLabel>
