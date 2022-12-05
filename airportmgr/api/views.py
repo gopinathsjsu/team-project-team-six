@@ -361,9 +361,9 @@ class GateAssignmentView(APIView):
         
         # iterate throught flights
         for i in all_flights:
-            # if gate not assigned
+            # if gate is not assigned
             if i[7] == '0':
-                # get first available gate
+                # get first available gate which is enabled and available
                 cursor.execute('''SELECT * FROM api_gate WHERE gateStatus = "Available" AND gateMaintainenceStatus = "Enabled"''')
                 first_available_gate = cursor.fetchone()
 
@@ -374,7 +374,7 @@ class GateAssignmentView(APIView):
                 WHERE flightCode =%s
                 """, (first_available_gate[1], str(i[1])))
 
-                # change gate status
+                # change gate status to occupied
                 cursor.execute ("""
                 UPDATE api_gate
                 SET gateStatus = %s
