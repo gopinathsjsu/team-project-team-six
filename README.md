@@ -65,7 +65,11 @@ https://www.figma.com/file/cX7TVZKSNTl7LzWanBf8Xi/Airport-Manager-CMPE-202?node-
 - We wanted to opt for a simple and minimalistic design for UI to focus on the functionality.
 - We hosted our MYSQL on AWS RDS. We chose mySQl cause we wanted to enforce the relationships between entities and as most of the data was structured.
 - We chose Django for backend as it is a python-based open-source web framework, which helped us to create database-driven websites and it provides great support for API development.
-- For frontend, we used react for faster page load and reload due to virtual DOM.
-- We hosted our API on Amazon EC2 instance for scalability and availability.
-- We also used auto-scaling and load balancing on AWS to handle incoming requests for the API.
+- Django REST framework (DRF) is a powerful and flexible toolkit for building Web APIs. It's main benefit is that it makes serialization much easier
+- ReactJs has a modular structure which helps in develop, manage, update and scale application easily.
+- React JS makes testing and debugging easier due to clear defined structure.
+- The UI components can be broken down and be reused again and again.
+- AWS EC2 is inexpensive where there is free-tier available for select types of instances.
+- Amazon EC2 offers a highly reliable environment.
+- Using a load balancer automoatically scales instances up or down to distribute incoming requests for the API according to the traffic.
 
