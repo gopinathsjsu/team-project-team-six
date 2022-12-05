@@ -22,6 +22,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import './FlightForm.css'
 
 let showFlightArrivalTable = false;
 let showFlightDepartureTable = false;
@@ -31,13 +32,8 @@ let showBaggageCarouselAssignmentTable = false;
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
-    // this.state = {dropdownValue: '', showFlightArrivalTable: false, showFlightDepartureTable: false, showGateAssignmentTable: false, showBaggageCarouselAssignmentTable: false};
     this.state = {dropdownValue: '', flightsData: []};
     this.handleChange = this.handleChange.bind(this);
-    // this.showFlightArrivalTable = false;
-    // this.showFlightDepartureTable = false;
-    // this.showGateAssignmentTable = false;
-    // this.showBaggageCarouselAssignmentTable = false;
   }
 
   
@@ -138,7 +134,28 @@ export default class HomePage extends Component {
       <div>
         <Router>
           <Routes>
-            <Route exact path = "/" element={<h1 style={{textAlign:"center"}}>Welcome to San Francisco Airport</h1>} />
+            <Route exact path = "/" element={
+            <div>
+              <h1 style={{textAlign:"center", color: 'white', font: 'verdana', paddingBottom: '20px'}}>Welcome to San Francisco Airport</h1>
+              <FormControl fullWidth>
+                <InputLabel id="choiceDropdown">What would you like to see?</InputLabel>
+                <Select
+                  class="home-page"
+                  labelId="choice-dropdown"
+                  id="choice-dropdown"
+                  style={{backgroundColor: 'white'}}
+                  onChange={(event) =>
+                    this.handleChange(event.target.value)}
+                >
+                  <MenuItem value={1}>Flight Departures</MenuItem>
+                  <MenuItem value={2}>Flight Arrivals</MenuItem>
+                  <MenuItem value={3}>Gate assignments</MenuItem>
+                  <MenuItem value={4}>Baggage Carousel assignments</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          
+          } />
             <Route path = "/airlineemployeepage" element={<AirlineEmployeePage />} />
             <Route path = "/airportemployeepage" element={<AirportEmployeePage />} />
             <Route path = "/airlineoptionpage" element={<AirlineOptionPage/>} />
@@ -148,20 +165,6 @@ export default class HomePage extends Component {
             <Route path = "/forms" element={<FlightForm />} />
           </Routes>
         </Router>
-        <FormControl fullWidth>
-          <InputLabel id="choiceDropdown">What would you like to see?</InputLabel>
-          <Select
-            labelId="choice-dropdown"
-            id="choice-dropdown"
-            onChange={(event) =>
-              this.handleChange(event.target.value)}
-          >
-            <MenuItem value={1}>Flight Departures</MenuItem>
-            <MenuItem value={2}>Flight Arrivals</MenuItem>
-            <MenuItem value={3}>Gate assignments</MenuItem>
-            <MenuItem value={4}>Baggage Carousel assignments</MenuItem>
-          </Select>
-      </FormControl>
 
       {showFlightDepartureTable &&
         <div>
