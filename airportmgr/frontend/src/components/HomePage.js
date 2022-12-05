@@ -136,11 +136,6 @@ export default class HomePage extends Component {
               <h1 style={{textAlign:"center", color: 'white', font: 'verdana', paddingBottom: '20px'}}>Welcome to San Francisco Airport!</h1>
               <FormControl fullWidth>
                 <InputLabel id="choiceDropdown">What would you like to see?</InputLabel>
-                <Button variant="contained" color="primary" className="button-block">
-                  <Link href='/loginpage' centered>
-                    <p style={{color:"white"}}> Employee Login</p>
-                  </Link>
-                </Button> 
                 <Select
                   class="home-page"
                   labelId="choice-dropdown"
