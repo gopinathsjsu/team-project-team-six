@@ -65,7 +65,7 @@ const FlightUpdateForm = () => {
     };
     
     const handleSubmit = e => {
-        e.preventDefault();
+        //e.preventDefault();
 
         console.log(flightCode,flightSource, flightDestination, value, flightStatusDropdownValue, flightTypeDropdownValue);
         //handleClose();
