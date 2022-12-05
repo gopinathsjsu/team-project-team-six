@@ -55,6 +55,7 @@ function a11yProps(index) {
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   const [gateData, setGateData] = React.useState([]);
+  const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
   //const [active, setMaintainenceStatus] = React.useState('');
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -109,9 +110,26 @@ export default function BasicTabs() {
       fetch("/update-gate", requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data));
-      alert('You have changed the Gate Maintenance Status for gate number '+  currentGateNo + '. Go back to Home Page to verify your changes.');
+      forceUpdate();
+      //alert('You have changed the Gate Maintenance Status for gate number '+  currentGateNo + '. Go back to Home Page to verify your changes.');
+      
   }
-
+  const handleGateClick = () => {
+    fetch("/assign-gate").then((response) => 
+        response.json()
+        ).then((data) => {
+          console.log(data);
+        }
+        )
+  }
+  const handleBaggageClick = () => {
+    fetch("/assign-baggage").then((response) => 
+        response.json()
+        ).then((data) => {
+          console.log(data);
+        }
+        )
+  }
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -119,6 +137,7 @@ export default function BasicTabs() {
         <Tab label="Home" />
         <Tab label=" Gate Maintenance" onClick={handleClick} />
         <Tab label="Gate/Baggage assignment" />
+        <Tab label="Logout" />
       </Tabs>
     </Box>
       <TabPanel value={value} index={0}>
@@ -167,7 +186,7 @@ export default function BasicTabs() {
                         variant="contained"
                         color="primary"
                         type="submit" 
-                        onClick={()=>changeStatus(row.gateMaintainenceStatus, row.gateNo, row.gateStatus, row.terminalNo)}>
+                        onClick={()=> changeStatus(row.gateMaintainenceStatus, row.gateNo, row.gateStatus, row.terminalNo)}>
                         Enable/Disable Gate
                       </Button>
                     </TableCell>
@@ -182,7 +201,40 @@ export default function BasicTabs() {
       </TabPanel>
       
       <TabPanel value={value} index={2}>
-        Gate/Baggage assignment
+      <Grid container>
+            <Grid item xs={1} />
+            <Grid item xs={10} style={{ display: "flex", gap: "1rem" }}>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  className="button-block"
+                  value = 'add'
+                  onClick={handleGateClick}
+                  >
+                  Assign Gates
+              </Button>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  className="button-block"
+                  value = 'update'
+                  onClick={handleBaggageClick}
+                  >
+                  Assign Baggage Carousel
+              </Button>
+              </Grid>
+        </Grid>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Paper>
+            <Button variant="contained" color="primary" className="button-block">
+            <Link href='/loginpage' centered>
+                 <p style={{color:"white"}}> Click to logout</p>
+            </Link>
+            </Button>        
+          </Paper>
       </TabPanel>
     </Box>
   );

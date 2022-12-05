@@ -96,7 +96,7 @@ export default function BasicTabs() {
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="Home" onChange={handleOnChange}/>
           <Tab label="Add Or Upadte flights" onClick={handleClick} />
-         
+          <Tab label="Logout"/>
         </Tabs>
       </Box>
         <TabPanel value={value} index={0} >
@@ -134,7 +134,16 @@ export default function BasicTabs() {
               </Button>
               </Grid>
         </Grid>
-        </TabPanel>  
+        </TabPanel> 
+        <TabPanel value={value} index={2} >
+          <Paper>
+            <Button variant="contained" color="primary" className="button-block">
+            <Link href='/loginpage' centered>
+                 <p style={{color:"white"}}> Click to logout</p>
+            </Link>
+            </Button>        
+          </Paper>
+        </TabPanel>
       </Box> 
 
       {formVisible && renderForm()}
