@@ -218,7 +218,6 @@ class UpdateEmployeeView(APIView):
             employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeType', 'password'])
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_200_OK)        
         else:
-            # print(serializer.errors);
             return Response('Bad request: Invalid data', status=status.HTTP_400_BAD_REQUEST)
 
 class GateView(generics.CreateAPIView):
@@ -352,10 +351,6 @@ class UpdateBaggageView(APIView):
             return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class GateAssignmentView(APIView):
-    # def get(self, request, format=None):
-    #     cursor = connection.cursor()
-    #     subprocess.call('python3 api/gateAssignment.py gateAssignment %s', cursor)
-    #     return HttpResponse("Executed!")
     def get(self, request, format=None):
         cursor = connection.cursor()
 
@@ -365,9 +360,9 @@ class GateAssignmentView(APIView):
         
         # iterate throught flights
         for i in all_flights:
-            # if gate not assigned
+            # if gate is not assigned
             if i[7] == '0':
-                # get first available gate
+                # get first available gate which is enabled and available
                 cursor.execute('''SELECT * FROM api_gate WHERE gateStatus = "Available" AND gateMaintainenceStatus = "Enabled"''')
                 first_available_gate = cursor.fetchone()
 
@@ -378,7 +373,7 @@ class GateAssignmentView(APIView):
                 WHERE flightCode =%s
                 """, (first_available_gate[1], str(i[1])))
 
-                # change gate status
+                # change gate status to occupied
                 cursor.execute ("""
                 UPDATE api_gate
                 SET gateStatus = %s
@@ -396,7 +391,7 @@ class BaggageCarousalAssignmentView(APIView):
         for i in all_flights:
             # if baggage carousal is  not assigned
             if i[8] == 0:
-                # get first available baggage carousal
+                # get first available baggage carousal which is available
                 cursor.execute('''SELECT * FROM api_baggage WHERE baggageStatus = "Available" ''')
 
                 first_available_baggage_carousal = cursor.fetchone()
@@ -406,7 +401,6 @@ class BaggageCarousalAssignmentView(APIView):
                 SET flightCarouselNo = %s
                 WHERE flightCode =%s
                 """, (first_available_baggage_carousal[1], str(i[1])))
-                print('baggage carousal sql update done')
 
                 # change gate status
                 cursor.execute ("""
