@@ -34,3 +34,19 @@ https://docs.google.com/spreadsheets/d/1IQ1AjfNxo6Q11_3Ryg3yfWHwpLfcW495CGN26R4k
 ## Architecture Diagram
 
 ![image](https://user-images.githubusercontent.com/52251846/197302864-875ff925-d888-47b9-b1a1-cc4b1f4d2ff9.png)
+
+## Feature Set
+###### Airline Employee
+* Register to the application
+* Login to the application
+* Add new flight imformation
+* Update existing flight information
+###### Airport Employee
+* Register to the application
+* Login to the application
+* View all the gates' status
+* Enable/Disable a gate for maintenance
+* Assign gates to flights
+* Assign baggage carousel to flights
+###### Passenger
+* View flight information
