@@ -19,13 +19,15 @@ export default class LoginPage extends Component {
     handleChange(event) {
     this.setState({ username: event.state.username, password: event.state.password });
     }
+
+    // Get call for getting employee information for login verification
     handleSubmit(event) {
         event.preventDefault();
         fetch("/get-employee" + "?employeeEmail=" + this.state.username).then((response) => 
         response.json()
         ).then((data) => {
             if(data.toString() === 'Employee not found: Invalid employee ID') {
-                alert('User doesn not exist. Please create an account.');
+                alert('User does not exist. Please create an account.');
             }
             else if (data.password == this.state.password) {
                 if(data.employeeType == 1) {
@@ -36,7 +38,7 @@ export default class LoginPage extends Component {
                 }
             } 
             else if(data.password != this.state.password) {
-                alert ('Incorrect Credentials. Please try again');
+                alert ('Incorrect Credentials. Please try again!');
             }
         }
         )
