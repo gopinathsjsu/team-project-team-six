@@ -36,6 +36,12 @@ https://docs.google.com/spreadsheets/d/1fWvcFX3TMqRTKFlGgInmzyujm_t8z8VO93hP89LG
 
 ![image](https://user-images.githubusercontent.com/52251846/197302864-875ff925-d888-47b9-b1a1-cc4b1f4d2ff9.png)
 
+## Component Diagram
+https://drive.google.com/file/d/1eIZwghM9fHB9WN_4RD6azjmsIc6OJ-jr/view?usp=sharing
+
+## Component Diagram
+![Class diagram](https://user-images.githubusercontent.com/52251846/205582523-cfd1bc46-0124-44af-a7eb-31c9accd8abe.png)
+
 ## FIGMA designs
 https://www.figma.com/file/cX7TVZKSNTl7LzWanBf8Xi/Airport-Manager-CMPE-202?node-id=512%3A2&t=xopzEysoaYUbcegs-0
 
