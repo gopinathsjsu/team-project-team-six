@@ -409,6 +409,11 @@ class BaggageCarousalAssignmentView(APIView):
             WHERE baggageCarouselNo =%s
             """, ("Unavailable", first_available_baggage_carousal[1]))
     
+class GetAllFlights(generics.ListAPIView):
+
+    serializer_class = FlightSerializer
+    queryset = Flight.objects.all()
+
 class GetArrivingFlights(generics.ListAPIView):
 
     serializer_class = FlightSerializer

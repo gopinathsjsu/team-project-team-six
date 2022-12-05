@@ -15,10 +15,16 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import FlightDepartureTable from './FlightDepartureTable';
 import FlightArrivalTable from './FlightArrivalTable';
 import GateAssignmentTable from './GateAssignmentTable';
 import BaggageCarouselAssignmentTable from './BaggageCarouselAssignmentTable';
+import { Paper } from "@material-ui/core";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 let showFlightArrivalTable = false;
 let showFlightDepartureTable = false;
@@ -29,7 +35,7 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
     // this.state = {dropdownValue: '', showFlightArrivalTable: false, showFlightDepartureTable: false, showGateAssignmentTable: false, showBaggageCarouselAssignmentTable: false};
-    this.state = {dropdownValue: ''};
+    this.state = {dropdownValue: '', flightsData: []};
     this.handleChange = this.handleChange.bind(this);
     // this.showFlightArrivalTable = false;
     // this.showFlightDepartureTable = false;
@@ -37,13 +43,42 @@ export default class HomePage extends Component {
     // this.showBaggageCarouselAssignmentTable = false;
   }
 
+  
+  getDepartingFlightsData() {
+    fetch('/get-all-flights-dep').then((response) => 
+        response.json()
+    ).then((data) => {
+        console.log(data);
+        this.setState({ flightsData: data });
+        this.forceUpdate();
+        console.log(this.state.flightsData);
+    });
+  } 
+
+  getArrivingFlightsData() {
+    fetch('/get-all-flights-ar').then((response) => 
+        response.json()
+    ).then((data) => {
+        console.log(data);
+        this.setState({ flightsData: data });
+        this.forceUpdate();
+        console.log(this.state.flightsData);
+    });
+  } 
+
+  getAllFlightsData() {
+    fetch('/get-all-flights').then((response) => 
+        response.json()
+    ).then((data) => {
+        console.log(data);
+        this.setState({ flightsData: data });
+        this.forceUpdate();
+        console.log(this.state.flightsData);
+    });
+  } 
+
   handleChange(newValue) {
     this.setState({dropdownValue: newValue}, () => {
-      // console.log(this.state.dropdownValue)
-      // this.showFlightArrivalTable = false;
-      // this.showFlightDepartureTable = false;
-      // this.showGateAssignmentTable = false;
-      // this.showBaggageCarouselAssignmentTable = false;
 
       showFlightArrivalTable = false;
       showFlightDepartureTable = false;
@@ -51,93 +86,54 @@ export default class HomePage extends Component {
       showBaggageCarouselAssignmentTable = false;
 
       
-      // this.setState({showFlightArrivalTable: false, showFlightDepartureTable: false, showGateAssignmentTable: false, showBaggageCarouselAssignmentTable: false});
 
       if (this.state.dropdownValue == 1) {
-        // this.showFlightDepartureTable = true;
-        // this.showFlightArrivalTable = false;
-        // this.showGateAssignmentTable = false;
-        // this.showBaggageCarouselAssignmentTable = false;
+    
         showFlightDepartureTable = true;
         showFlightArrivalTable = false;
         showGateAssignmentTable = false;
         showBaggageCarouselAssignmentTable = false;
-        // this.setState({showFlightArrivalTable: false, showFlightDepartureTable: true, showGateAssignmentTable: false, showBaggageCarouselAssignmentTable: false});
+
+        this.getDepartingFlightsData();
         this.forceUpdate();
+      
       } 
       else if (this.state.dropdownValue == 2) {
-        // this.showFlightArrivalTable = true;
-        // this.showFlightDepartureTable = false;
-        // this.showGateAssignmentTable = false;
-        // this.showBaggageCarouselAssignmentTable = false;
+       
         showFlightArrivalTable = true;
         showFlightDepartureTable = false;
         showGateAssignmentTable = false;
         showBaggageCarouselAssignmentTable = false;
-        this.forceUpdate();
 
-        // this.setState({showFlightArrivalTable: true, showFlightDepartureTable: false, showGateAssignmentTable: false, showBaggageCarouselAssignmentTable: false});
+        this.getArrivingFlightsData();
+        this.forceUpdate();
 
       }
       else if (this.state.dropdownValue == 3) {
-        // this.showGateAssignmentTable = true;
-        // this.showFlightArrivalTable = false;
-        // this.showFlightDepartureTable = false;
-        // this.showBaggageCarouselAssignmentTable = false;
+       
         showGateAssignmentTable = true;
         showFlightArrivalTable = false;
         showFlightDepartureTable = false;
         showBaggageCarouselAssignmentTable = false;
-        // this.setState({showFlightArrivalTable: false, showFlightDepartureTable: false, showGateAssignmentTable: true, showBaggageCarouselAssignmentTable: false});
+
+        this.getAllFlightsData();
         this.forceUpdate();
 
       }
       else if (this.state.dropdownValue == 4) {
-        // this.showBaggageCarouselAssignmentTable = true;
-        // this.showGateAssignmentTable = false;
-        // this.showFlightArrivalTable = false;
-        // this.showFlightDepartureTable = false;
+        
         showBaggageCarouselAssignmentTable = true;
         showGateAssignmentTable = false;
         showFlightArrivalTable = false;
         showFlightDepartureTable = false;
-        // this.setState({showFlightArrivalTable: false, showFlightDepartureTable: false, showGateAssignmentTable: false, showBaggageCarouselAssignmentTable: true});
+
+        this.getAllFlightsData();
         this.forceUpdate();
 
       }
     });
 
-    // console.log(this.state.dropdownValue);
-
   }
-
-  // showFlightDepartures() {
-  //   this.showFlightDepartureTable = true;
-  //   this.showFlightArrivalTable = false;
-  //   this.showGateAssignmentTable = false;
-  //   this.showBaggageCarouselAssignmentTable = false;
-  // }
-
-  // showFlightArrivals() {
-  //   this.showFlightArrivalTable = true;
-  //   this.showFlightDepartureTable = false;
-  //   this.showGateAssignmentTable = false;
-  //   this.showBaggageCarouselAssignmentTable = false;
-  // }
-
-  // showGateAssignments() {
-  //   this.showGateAssignmentTable = true;
-  //   this.showFlightArrivalTable = false;
-  //   this.showFlightDepartureTable = false;
-  //   this.showBaggageCarouselAssignmentTable = false;
-  // }
-
-  // showBaggageCarouselAssignments() {
-  //   this.showBaggageCarouselAssignmentTable = true;
-  //   this.showGateAssignmentTable = false;
-  //   this.showFlightArrivalTable = false;
-  //   this.showFlightDepartureTable = false;
-  // }
  
   render() {
     return (
@@ -171,16 +167,157 @@ export default class HomePage extends Component {
       </FormControl>
 
       {showFlightDepartureTable &&
-        <FlightDepartureTable />}
+        <div>
+          <Paper className="contain">
+              <Table sx={{ minWidth: 650 }} aria-label="Flight Departures table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">No.</TableCell>
+                  <TableCell align="center">Flight Code</TableCell>
+                  <TableCell align="center">Source</TableCell>
+                  <TableCell align="center">Destination</TableCell>
+                  <TableCell align="center">Scheduled Time</TableCell>
+                  <TableCell align="center">Status</TableCell>               
+                  <TableCell align="center">Type</TableCell>               
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.flightsData.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="center" component="th" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="center">{row.flightCode}</TableCell>
+                    <TableCell align="center">{row.flightSource}</TableCell>
+                    <TableCell align="center">{row.flightDestination}</TableCell>
+                    <TableCell align="center">{row.flightSchedule}</TableCell>
+                    <TableCell align="center">{row.flightStatus}</TableCell>
+                    <TableCell align="center">{row.flightType}</TableCell>
+                   
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
+      }
 
       {showFlightArrivalTable &&
-        <FlightArrivalTable />}
+        <div>
+          <Paper className="contain">
+              <Table sx={{ minWidth: 650 }} aria-label="Flight Arrivals table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">No.</TableCell>
+                  <TableCell align="center">Flight Code</TableCell>
+                  <TableCell align="center">Source</TableCell>
+                  <TableCell align="center">Destination</TableCell>
+                  <TableCell align="center">Scheduled Time</TableCell>
+                  <TableCell align="center">Status</TableCell>               
+                  <TableCell align="center">Type</TableCell>               
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.flightsData.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="center" component="th" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="center">{row.flightCode}</TableCell>
+                    <TableCell align="center">{row.flightSource}</TableCell>
+                    <TableCell align="center">{row.flightDestination}</TableCell>
+                    <TableCell align="center">{row.flightSchedule}</TableCell>
+                    <TableCell align="center">{row.flightStatus}</TableCell>
+                    <TableCell align="center">{row.flightType}</TableCell>
+                  
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
+      }
 
       {showGateAssignmentTable &&
-        <GateAssignmentTable />}
+         <div>
+          <Paper className="contain">
+              <Table sx={{ minWidth: 650 }} aria-label="Flight Gates table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">No.</TableCell>
+                  <TableCell align="center">Flight Code</TableCell>
+                  <TableCell align="center">Source</TableCell>
+                  <TableCell align="center">Destination</TableCell>
+                  <TableCell align="center">Scheduled Time</TableCell>
+                  <TableCell align="center">Gate number</TableCell>               
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.flightsData.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="center" component="th" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="center">{row.flightCode}</TableCell>
+                    <TableCell align="center">{row.flightSource}</TableCell>
+                    <TableCell align="center">{row.flightDestination}</TableCell>
+                    <TableCell align="center">{row.flightSchedule}</TableCell>
+                    <TableCell align="center">{row.flightGate}</TableCell>
+                  
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
+      }
       
       {showBaggageCarouselAssignmentTable &&
-        <BaggageCarouselAssignmentTable />}
+        <div>
+          <Paper className="contain">
+              <Table sx={{ minWidth: 650 }} aria-label="Flight Baggage table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">No.</TableCell>
+                  <TableCell align="center">Flight Code</TableCell>
+                  <TableCell align="center">Source</TableCell>
+                  <TableCell align="center">Destination</TableCell>
+                  <TableCell align="center">Scheduled Time</TableCell>
+                  <TableCell align="center">Baggage Carousel number</TableCell>               
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.flightsData.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="center" component="th" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="center">{row.flightCode}</TableCell>
+                    <TableCell align="center">{row.flightSource}</TableCell>
+                    <TableCell align="center">{row.flightDestination}</TableCell>
+                    <TableCell align="center">{row.flightSchedule}</TableCell>
+                    <TableCell align="center">{row.flightCarouselNo}</TableCell>
+                  
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
+        
+      }
 
 
     </div>
