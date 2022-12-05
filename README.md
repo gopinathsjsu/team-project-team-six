@@ -47,3 +47,12 @@ https://docs.google.com/spreadsheets/d/1fWvcFX3TMqRTKFlGgInmzyujm_t8z8VO93hP89LG
 * Assign baggage carousel to flights
 ###### Passenger
 * View flight information
+
+## Design decisions
+- We wanted to opt for a simple and minimalistic design for UI to focus on the functionality.
+- We hosted our MYSQL on AWS RDS. We chose mySQl cause we wanted to enforce the relationships between entities and as most of the data was structured.
+- We chose Django for backend as it is a python-based open-source web framework, which helped us to create database-driven websites and it provides great support for API development
+- For frontend, we used react for faster page load and reload due to virtual DOM.
+- We hosted our API on Amazon EC2 instance for scalability and availability.
+- We also used auto-scaling and load balancing on AWS to handle incoming requests for the API.
+
