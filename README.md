@@ -12,6 +12,9 @@
 ## Scrum Meeting:
 The team followed a weekly status update and used to meet every Friday for a SCRUM meeting.
 
+## Sprint journal:
+https://docs.google.com/document/d/128gPWTqZ3xhiH20bWj2-MMGFBszZ3Ll1Eubz9FEg3hQ/edit?usp=sharing
+
 ## Sprint Sheet:
 https://docs.google.com/spreadsheets/d/1fWvcFX3TMqRTKFlGgInmzyujm_t8z8VO93hP89LGAzo/edit?usp=sharing
 
