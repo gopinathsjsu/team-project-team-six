@@ -1,9 +1,6 @@
-"# team-project-team-six" 
+# Airport Management System by Team-6
 
-<b> Project Board Link : </b> <br/>
-
-
-Team Members:
+## Team Members:
 
 - Sayali Nilangekar 
 - Pratik Mali 
@@ -16,14 +13,14 @@ Team Members:
 The team followed a weekly status update and used to meet every Friday for a SCRUM meeting.
 
 ## Sprint Sheet:
-https://docs.google.com/spreadsheets/d/1IQ1AjfNxo6Q11_3Ryg3yfWHwpLfcW495CGN26R4k4j8/edit#gid=0
+https://docs.google.com/spreadsheets/d/1fWvcFX3TMqRTKFlGgInmzyujm_t8z8VO93hP89LGAzo/edit?usp=sharing
 
 ## TECH STACK USED:
 
 - Frontend: ReactJS
 - Backend: Python 
 - Database: MySQL
-- REST API: Postman(Testing APIs)
+- REST API: Django REST Framework
 - Cloud: AWS EC2
 
 ## XP Core Values
