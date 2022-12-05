@@ -35,6 +35,9 @@ https://docs.google.com/spreadsheets/d/1fWvcFX3TMqRTKFlGgInmzyujm_t8z8VO93hP89LG
 
 ![image](https://user-images.githubusercontent.com/52251846/197302864-875ff925-d888-47b9-b1a1-cc4b1f4d2ff9.png)
 
+## FIGMA designs
+https://www.figma.com/file/cX7TVZKSNTl7LzWanBf8Xi/Airport-Manager-CMPE-202?node-id=512%3A2&t=xopzEysoaYUbcegs-0
+
 ## Feature Set
 ###### Airline Employee
 * Register to the application
