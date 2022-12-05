@@ -6,8 +6,9 @@
 - Pratik Mali 
 - Ashutosh Patil 
 - Yashvi Desai 
-
-### <a href="https://github.com/orgs/gopinathsjsu/projects/44/views/1">Project Board</a>
+- 
+## Project Board
+https://github.com/orgs/gopinathsjsu/projects/44/views/1
 
 ## Scrum Meeting:
 The team followed a weekly status update and used to meet every Wednesday for a SCRUM meeting.
