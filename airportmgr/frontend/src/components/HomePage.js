@@ -8,18 +8,15 @@ import AirportOptionPage from "./AirportOptionPage";
 import FlightForm from './FlightForm'
 import {BrowserRouter as Router, 
         Routes, 
-        Route, 
-        Link, 
-        Redirect} from "react-router-dom";
+        Route} from "react-router-dom";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { Paper } from "@material-ui/core";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import './FlightForm.css'
@@ -36,7 +33,6 @@ export default class HomePage extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  
   getDepartingFlightsData() {
     fetch('/get-all-flights-dep').then((response) => 
         response.json()
@@ -77,8 +73,6 @@ export default class HomePage extends Component {
       showFlightDepartureTable = false;
       showGateAssignmentTable = false;
       showBaggageCarouselAssignmentTable = false;
-
-      
 
       if (this.state.dropdownValue == 1) {
     
