@@ -13,7 +13,7 @@ Team Members:
 ### <a href="https://github.com/orgs/gopinathsjsu/projects/44/views/1">Project Board</a>
 
 ## Scrum Meeting:
-Every Friday 
+The team followed a weekly status update used to meet every Friday for a SCRUM meeting.
 
 ## Sprint Sheet:
 https://docs.google.com/spreadsheets/d/1IQ1AjfNxo6Q11_3Ryg3yfWHwpLfcW495CGN26R4k4j8/edit#gid=0
