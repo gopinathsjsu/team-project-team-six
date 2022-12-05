@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState, } from 'react';
+import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -62,26 +62,21 @@ export default function BasicTabs() {
   const [updateFormVisible, showUpdateForm] = useState(false);
 
   const inputHandler = (e) => {  
-    console.log("im here");  
      showForm(true);    
      showUpdateForm(false);
   };
   const updateInputHandler = (e) => {  
-    console.log("im here");  
     showUpdateForm(true);    
     showForm(false);
   };
 
   const handleOnChange = (e) => {
-    console.log("got here");
     showForm(false);
-    console.log(formVisible);
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const addEvent = false;
-  const updateEvent = false;
+  
   const handleClick = (event) => {
     console.log("button is working here");
   } 
