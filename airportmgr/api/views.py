@@ -218,7 +218,6 @@ class UpdateEmployeeView(APIView):
             employee.save(update_fields=['employeeFirstName', 'employeeLastName', 'employeeType', 'password'])
             return Response(EmployeeSerializer(employee).data, status=status.HTTP_200_OK)        
         else:
-            # print(serializer.errors);
             return Response('Bad request: Invalid data', status=status.HTTP_400_BAD_REQUEST)
 
 class GateView(generics.CreateAPIView):
@@ -402,7 +401,6 @@ class BaggageCarousalAssignmentView(APIView):
                 SET flightCarouselNo = %s
                 WHERE flightCode =%s
                 """, (first_available_baggage_carousal[1], str(i[1])))
-                print('baggage carousal sql update done')
 
                 # change gate status
                 cursor.execute ("""
