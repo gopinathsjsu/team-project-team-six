@@ -4,6 +4,8 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db import connection
+import subprocess
+
 
 from .serializers import FlightSerializer, AirlineSerializer, EmployeeSerializer, GateSerializer, BaggageSerializer, CreateFlightSerializer, CreateGateSerializer, CreateEmployeeSerializer, CreateBaggageSerializer, CreateAirlineSerializer, UpdateAirlineSerializer, UpdateFlightSerializer, UpdateGateSerializer, UpdateEmployeeSerializer,UpdateBaggageSerializer
 from .models import Flight, Airline, Employee, Gate, Baggage
@@ -350,65 +352,69 @@ class UpdateBaggageView(APIView):
             return Response({'Bad request':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class GateAssignmentView(APIView):
-    cursor = connection.cursor()
+    # def get(self, request, format=None):
+    #     cursor = connection.cursor()
+    #     subprocess.call('python3 api/gateAssignment.py gateAssignment %s', cursor)
+    #     return HttpResponse("Executed!")
+    def get(self, request, format=None):
+        cursor = connection.cursor()
 
-    # get all flights
-    cursor.execute(''' SELECT * FROM api_flight ''')
-    all_flights = cursor.fetchall()
+        # get all flights
+        cursor.execute(''' SELECT * FROM api_flight ''')
+        all_flights = cursor.fetchall()
+        
+        # iterate throught flights
+        for i in all_flights:
+            # if gate not assigned
+            if i[7] == '0':
+                # get first available gate
+                cursor.execute('''SELECT * FROM api_gate WHERE gateStatus = "Available" AND gateMaintainenceStatus = "Enabled"''')
+                first_available_gate = cursor.fetchone()
 
-    # iterate throught flights
-    for i in all_flights:
-        # if gate not assigned
-        if i[8] != 0:
-            # get first available gate
-            cursor.execute('''SELECT * FROM api_gate WHERE gateStatus = "Available" AND gateMaintainenceStatus = "Enable"''')
+                # assign first available gate to flight
+                cursor.execute ("""
+                UPDATE api_flight
+                SET flightGate = %s
+                WHERE flightCode =%s
+                """, (first_available_gate[1], str(i[1])))
 
-            first_available_gate = cursor.fetchone()
-            # assign first available gate to flight
-            cursor.execute ("""
-            UPDATE api_flight
-            SET flightGate = %s
-            WHERE flightCode =%s
-            """, (first_available_gate[1], str(i[1])))
-            print('gate sql update done')
-
-            # change gate status
-            cursor.execute ("""
-            UPDATE api_gate
-            SET gateStatus = %s
-            WHERE gateNo =%s
-            """, ("Occupied", first_available_gate[1]))
+                # change gate status
+                cursor.execute ("""
+                UPDATE api_gate
+                SET gateStatus = %s
+                WHERE gateNo =%s
+                """, ("Occupied", first_available_gate[1]))
 
 class BaggageCarousalAssignmentView(APIView):
-    cursor = connection.cursor()
+    def get(self, request, format=None):
+        cursor = connection.cursor()
 
-    # get all flights
-    cursor.execute(''' SELECT * FROM api_flight ''')
-    all_flights = cursor.fetchall()
+        # get all flights
+        cursor.execute(''' SELECT * FROM api_flight ''')
+        all_flights = cursor.fetchall()
+        # iterate throught flights
+        for i in all_flights:
+            # if baggage carousal is  not assigned
+            if i[8] == 0:
+                # get first available baggage carousal
+                cursor.execute('''SELECT * FROM api_baggage WHERE baggageStatus = "Available" ''')
 
-    # iterate throught flights
-    for i in all_flights:
-        # if baggage carousal is  not assigned
-        if i[9] == 0:
-            # get first available baggage carousal
-            cursor.execute('''SELECT * FROM api_baggage WHERE baggageStatus = "Available" ''')
+                first_available_baggage_carousal = cursor.fetchone()
+                # assign first available baggage carousal to flight
+                cursor.execute ("""
+                UPDATE api_flight
+                SET flightCarouselNo = %s
+                WHERE flightCode =%s
+                """, (first_available_baggage_carousal[1], str(i[1])))
+                print('baggage carousal sql update done')
 
-            first_available_baggage_carousal = cursor.fetchone()
-            # assign first available baggage carousal to flight
-            cursor.execute ("""
-            UPDATE api_flight
-            SET flightCarouselNo = %s
-            WHERE flightCode =%s
-            """, (first_available_baggage_carousal[1], str(i[1])))
-            print('baggage carousal sql update done')
-
-            # change gate status
-            cursor.execute ("""
-            UPDATE api_baggage
-            SET baggageStatus = %s
-            WHERE baggageCarouselNo =%s
-            """, ("Unavailable", first_available_baggage_carousal[1]))
-    
+                # change gate status
+                cursor.execute ("""
+                UPDATE api_baggage
+                SET baggageStatus = %s
+                WHERE baggageCarouselNo =%s
+                """, ("Unavailable", first_available_baggage_carousal[1]))
+                
 class GetAllFlights(generics.ListAPIView):
 
     serializer_class = FlightSerializer
@@ -423,3 +429,9 @@ class GetDepartingFlights(generics.ListAPIView):
 
     serializer_class = FlightSerializer
     queryset = Flight.objects.filter(flightSource="SFO")
+        
+class GetAllGates(generics.ListAPIView):
+
+    serializer_class = GateSerializer
+    queryset = Gate.objects.all()
+
