@@ -19,8 +19,6 @@ export default class App extends Component {
     return (
     <div class="bg home" style={{justifyContent:"center"}}>
       <HomePage />
-      {/* <AirlineEmployeePage />
-      <AirportEmployeePage /> */}
     </div>
     );
   }
