@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import AirlineEmployeePage from "./AirlineEmployeePage";
 import LoginPage from "./LoginPage";
 import SignUpPage from "./SignUpPage";
@@ -33,6 +33,7 @@ export default class HomePage extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  //GET API call to get all departing flights data
   getDepartingFlightsData() {
     fetch('/get-all-flights-dep').then((response) => 
         response.json()
@@ -44,6 +45,7 @@ export default class HomePage extends Component {
     });
   } 
 
+  //GET API call to get all arriving flights data
   getArrivingFlightsData() {
     fetch('/get-all-flights-ar').then((response) => 
         response.json()
@@ -54,7 +56,8 @@ export default class HomePage extends Component {
         console.log(this.state.flightsData);
     });
   } 
-
+  
+  //GET API call to get all flights data
   getAllFlightsData() {
     fetch('/get-all-flights').then((response) => 
         response.json()
@@ -66,6 +69,7 @@ export default class HomePage extends Component {
     });
   } 
 
+  // Based on dropdown selection, show appropriate table
   handleChange(newValue) {
     this.setState({dropdownValue: newValue}, () => {
 
@@ -124,13 +128,12 @@ export default class HomePage extends Component {
  
   render() {
     return (
-      // <p>This is the Home page.</p>
       <div>
         <Router>
           <Routes>
             <Route exact path = "/" element={
             <div>
-              <h1 style={{textAlign:"center", color: 'white', font: 'verdana', paddingBottom: '20px'}}>Welcome to San Francisco Airport</h1>
+              <h1 style={{textAlign:"center", color: 'white', font: 'verdana', paddingBottom: '20px'}}>Welcome to San Francisco Airport!</h1>
               <FormControl fullWidth>
                 <InputLabel id="choiceDropdown">What would you like to see?</InputLabel>
                 <Button variant="contained" color="primary" className="button-block">
